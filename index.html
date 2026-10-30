@@ -172,6 +172,40 @@ section.alt{background:var(--surface)}
 .card-price small{display:block;font-size:.75rem;color:var(--muted);font-weight:500}
 .card-price strong{font-family:var(--display);font-size:1.4rem;font-weight:700}
 .card .btn{margin-top:14px;width:100%}
+/* ===== Celular: grade compacta de imóveis (2 ou 3 por linha) ===== */
+@media (max-width:680px){
+  body.m2 #grid,body.m3 #grid{gap:12px}
+  body.m2 #grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.m3 #grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  body.m2 #grid .card,body.m3 #grid .card{border-radius:14px}
+  body.m2 #grid .card:hover,body.m3 #grid .card:hover{transform:none}
+  body.m2 #grid .card-img .tag,body.m3 #grid .card-img .tag{top:8px;left:8px;font-size:.6rem;padding:3px 7px;letter-spacing:.04em}
+  body.m2 #grid .card-photos{bottom:8px;right:8px;font-size:.68rem;padding:2px 7px}
+  body.m2 #grid .card-body{padding:10px 10px 12px}
+  body.m2 #grid .card-title{font-size:.88rem;line-height:1.25}
+  body.m2 #grid .card-loc{font-size:.76rem}
+  body.m2 #grid .card-loc svg{width:12px;height:12px}
+  body.m2 #grid .feats{grid-template-columns:repeat(4,minmax(0,1fr));margin:8px 0;padding:7px 0;gap:2px}
+  body.m2 #grid .feat-i{gap:0}
+  body.m2 #grid .feat-i svg{width:14px;height:14px}
+  body.m2 #grid .feat-i b{font-size:.78rem}
+  body.m2 #grid .feat-i small{display:none}
+  body.m2 #grid .card-price small{display:none}
+  body.m2 #grid .card-price strong{font-size:1.02rem}
+  body.m2 #grid .card .btn{margin-top:8px;padding:8px 10px;font-size:.8rem}
+  /* 3 por linha: só o essencial, o card inteiro abre os detalhes */
+  body.m3 #grid .card-img{aspect-ratio:1/1}
+  body.m3 #grid .card-photos,body.m3 #grid .feats,body.m3 #grid .card .btn,body.m3 #grid .card-price small,body.m3 #grid .card-loc svg{display:none}
+  body.m3 #grid .card-body{padding:7px 7px 9px;gap:1px}
+  body.m3 #grid .card-title{font-size:.74rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  body.m3 #grid .card-loc{font-size:.66rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  body.m3 #grid .card-price{margin-top:3px}
+  body.m3 #grid .card-price strong{font-size:.82rem}
+  body.m2 #grid .feats{margin-top:auto}
+  body.m3 #grid .card-price{margin-top:auto;padding-top:3px}
+  body.m3 #grid .card-img .tag{font-size:.52rem;padding:2px 6px;top:6px;left:6px}
+}
+
 .empty{grid-column:1/-1;background:var(--surface);border-radius:var(--r);padding:32px;text-align:center;color:var(--muted)}
 .sk{background:linear-gradient(90deg,var(--surface),var(--line),var(--surface));background-size:200% 100%;animation:sk 1.4s infinite}
 @keyframes sk{to{background-position:-200% 0}}
