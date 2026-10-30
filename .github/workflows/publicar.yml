@@ -1,0 +1,40 @@
+name: Publicar site
+
+# Gera as páginas dos imóveis a partir do My Home e publica no GitHub Pages.
+# Roda sozinho 2x por dia, a cada alteração no repositório, ou manualmente (botão "Run workflow").
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 9 * * *"    # 06:00 em Brasília
+    - cron: "0 18 * * *"   # 15:00 em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gerar páginas dos imóveis
+        run: python gerador/gerar.py --saida _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
