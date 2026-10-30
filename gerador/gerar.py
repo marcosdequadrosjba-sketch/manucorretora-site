@@ -197,7 +197,7 @@ a.card{color:inherit;text-decoration:none}
 .gal2{position:relative;border-radius:20px;overflow:hidden;background:#111;margin-top:16px}
 .gal2-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gal2-track::-webkit-scrollbar{display:none}
-.gal2-track img{flex:0 0 100%;width:100%;aspect-ratio:16/10;object-fit:contain;scroll-snap-align:center;background:#111}
+.gal2-track img{flex:0 0 100%;width:100%;aspect-ratio:16/10;max-height:72vh;object-fit:contain;scroll-snap-align:center;background:#111}
 @media (max-width:760px){.gal2{border-radius:14px}.gal2-track img{aspect-ratio:4/3}}
 .gal2 .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:0;color:#1F1B17}
 .gal2 .arrow.prev{left:12px}.gal2 .arrow.next{right:12px}
