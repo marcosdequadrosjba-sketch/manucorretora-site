@@ -222,6 +222,9 @@ document.getElementById("yr")&&(document.getElementById("yr").textContent=new Da
 </script>"""
 
 
+MEDICAO = open(os.path.join(ROOT, "gerador", "medicao.html"), encoding="utf-8").read()
+
+
 def pagina(titulo, descricao, url, corpo, style, header, footer, wafloat, og_img=None, jsonld=None, msg_whats="Olá, Manu! Vi seu site e gostaria de mais informações."):
     og_img = og_img or f"{SITE}/joacaba-2.jpg"
     ld = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in (jsonld or []))
@@ -244,6 +247,7 @@ def pagina(titulo, descricao, url, corpo, style, header, footer, wafloat, og_img
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
+{MEDICAO}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
