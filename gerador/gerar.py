@@ -8,6 +8,7 @@
 
 Roda no GitHub Actions (sem custo). Uso local de teste:  python3 gerador/gerar.py --dados teste.json --saida /tmp/site
 """
+import simulador
 import argparse, datetime as dt, html, json, os, re, shutil, sys, unicodedata, urllib.parse, urllib.request
 
 SB_URL = "https://hfirfbdpgjakinagjwcr.supabase.co"
@@ -313,6 +314,7 @@ def pagina_imovel(p, todos, partes):
       {feats(p)}
       <a class="btn btn-accent" href="{e(wa(msg))}" target="_blank" rel="noopener">Tenho interesse</a>
       <a class="btn btn-line" href="{e(wa('Olá, Manu! Gostaria de agendar uma visita ao imóvel "' + p["title"] + '".'))}" target="_blank" rel="noopener">Agendar visita</a>
+      <a class="btn btn-line" href="/simulador-financiamento/?imovel={p["slug"]}">Simular financiamento</a>
       <button type="button" class="btn btn-ghost" id="share">Compartilhar imóvel</button>
       <small>Manu Corretora · CRECI 54977 F · WhatsApp {FONE}</small>
     </aside>
@@ -405,6 +407,21 @@ def pagina_busca(b, todos, partes):
 
 
 # ---------------------------------------------------------------- gravação
+def pagina_simulador(todos, partes):
+    style, header, footer, wafloat, seo = partes
+    url = f"{SITE}/simulador-financiamento/"
+    imoveis_js = json.dumps([{"slug": p["slug"], "title": p["title"], "price": float(p["price"] or 0)} for p in todos if p.get("price")], ensure_ascii=False)
+    corpo = simulador.corpo(ICON["pin"], e, wa("Olá, Manu! Quero fazer uma simulação de financiamento."), imoveis_js)
+    corpo += f'''<section class="block"><div class="wrap"><div class="sec-head"><div><h2>Imóveis e buscas em Joaçaba e região</h2></div></div>{seo}</div></section>'''
+    titulo = "Simulador de financiamento de imóvel · Caixa, BB, Santander, Bradesco, Itaú | Manu Corretora"
+    desc = "Simule grátis o financiamento do seu imóvel em Joaçaba e região: parcela SAC e Price, entrada, renda mínima e comparação entre Caixa, Banco do Brasil, Santander, Bradesco, Itaú e cooperativas."
+    faq = {"@context": "https://schema.org", "@type": "WebApplication", "name": "Simulador de financiamento imobiliário", "url": url,
+           "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": 0, "priceCurrency": "BRL"},
+           "provider": AGENTE}
+    html_txt = pagina(titulo, desc, url, corpo, style + simulador.CSS, header, footer, wafloat, jsonld=[faq], msg_whats="Olá, Manu! Quero fazer uma simulação de financiamento.")
+    return html_txt
+
+
 def gravar(caminho, conteudo):
     os.makedirs(os.path.dirname(caminho), exist_ok=True)
     with open(caminho, "w", encoding="utf-8") as f:
@@ -429,10 +446,11 @@ def main():
         gravar(os.path.join(out, "imovel", p["slug"], "index.html"), pagina_imovel(p, todos, partes))
     for b in BUSCAS:
         gravar(os.path.join(out, b["slug"], "index.html"), pagina_busca(b, todos, partes))
+    gravar(os.path.join(out, "simulador-financiamento", "index.html"), pagina_simulador(todos, partes))
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
 
     hoje = dt.date.today().isoformat()
-    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
+    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8")] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
     gravar(os.path.join(out, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n")
     print(f"{len(todos)} imóveis, {len(BUSCAS)} páginas de busca, {len(urls)} endereços no sitemap")

@@ -303,6 +303,7 @@ dialog::backdrop{background:rgba(18,14,10,.6);backdrop-filter:blur(3px)}
     <nav class="links" aria-label="Seções">
       <a href="#destaques">Destaques</a>
       <a href="#imoveis">Imóveis</a>
+      <a href="/simulador-financiamento/">Simular financiamento</a>
       <a href="#vender">Vender</a>
       <a href="#sobre">Sobre</a>
     </nav>
@@ -386,6 +387,7 @@ dialog::backdrop{background:rgba(18,14,10,.6);backdrop-filter:blur(3px)}
         <a href="/casas-a-venda/">Casas à venda</a>
         <a href="/apartamentos-a-venda/">Apartamentos à venda</a>
         <a href="/terrenos-a-venda/">Terrenos à venda</a>
+        <a href="/simulador-financiamento/">Simulador de financiamento</a>
       </nav>
     </div>
   </section>
@@ -633,6 +635,7 @@ dialog::backdrop{background:rgba(18,14,10,.6);backdrop-filter:blur(3px)}
               ${featsHTML(cur)}
               <a class="btn btn-accent" href="${wa(msg)}" target="_blank" rel="noopener">Tenho interesse</a>
               <a class="btn btn-line" href="${wa("Olá, Manu! Gostaria de agendar uma visita ao imóvel \""+cur.title+"\".")}" target="_blank" rel="noopener">Agendar visita</a>
+              ${SLUGS[cur.id] ? `<a class="btn btn-line" href="/simulador-financiamento/?imovel=${SLUGS[cur.id]}">Simular financiamento</a>` : ""}
               ${SLUGS[cur.id] ? `<button type="button" class="btn btn-line js-share">Compartilhar imóvel</button>` : ""}
               <small>Manu Corretora · CRECI 54977 F</small>
             </aside>
