@@ -130,7 +130,7 @@ def corpo(ICON_PIN, e, wa_link_padrao, imoveis_js):
   <details><summary>Quanto preciso de entrada?</summary><p>Na maioria dos bancos, o financiamento cobre até 80% do valor do imóvel, então a entrada mínima costuma ser de 20%. Em programas como o Minha Casa, Minha Vida a entrada pode ser menor. O FGTS pode ser usado como parte da entrada se você cumprir as regras.</p></details>
   <details><summary>Quanto de renda preciso para financiar?</summary><p>Os bancos costumam aceitar parcelas de até 30% da renda bruta familiar. É possível somar a renda de mais de uma pessoa, como casais.</p></details>
   <details><summary>Posso usar o Minha Casa, Minha Vida?</summary><p>Famílias com renda bruta de até R$ 13 mil por mês podem se enquadrar. Faixa 1: renda até R$ 3.200; faixa 2: até R$ 5.000 (imóveis de até R$ 275 mil, conforme o município); faixa 3: até R$ 9.600 (imóveis de até R$ 400 mil); faixa 4: até R$ 13.000 (imóveis de até R$ 600 mil). Os juros são menores que os da linha tradicional e, nas faixas iniciais, pode haver subsídio. Informe sua renda no simulador para ver a taxa estimada. Fale com a Manu para saber se o seu caso se encaixa.</p></details>
-  <details><summary>A corretora ajuda com o financiamento?</summary><p>Sim. A Manu acompanha toda a parte de documentação e aprovação do crédito junto ao banco, do pedido de simulação oficial até a assinatura do contrato.</p></details>
+  <details><summary>A corretora ajuda com o financiamento?</summary><p>Sim. A Manu dá apoio e orientação durante todo o processo, da simulação à assinatura do contrato, e indica um correspondente bancário de confiança, que é quem encaminha a documentação ao banco e acompanha a análise de crédito.</p></details>
 </div></section>
 
 <script>
