@@ -377,6 +377,10 @@ BUSCAS = [
      "title": "Terrenos à venda em Joaçaba, Herval d'Oeste e Luzerna | Manu Corretora",
      "intro": "Terrenos à venda em Joaçaba e região para construir sua casa ou investir. Veja a metragem e a localização de cada terreno e fale comigo para saber sobre documentação e viabilidade de construção.",
      "filtro": lambda p: p["type"] == "terreno"},
+    {"slug": "imoveis-alto-padrao", "h1": "Imóveis de alto padrão em Joaçaba",
+     "title": "Casas e imóveis de alto padrão à venda em Joaçaba (SC) | Manu Corretora",
+     "intro": "Casas e imóveis de alto padrão à venda em Joaçaba e região, com acabamento diferenciado, amplos espaços e localização privilegiada. Atendimento personalizado e visitas com hora marcada: fale comigo pelo WhatsApp para conhecer cada imóvel com calma.",
+     "filtro": lambda p: float(p.get("price") or 0) >= 1000000 or "alto padr" in (p.get("title") or "").lower()},
 ]
 
 
