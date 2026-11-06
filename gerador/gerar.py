@@ -124,7 +124,8 @@ def partes_do_index():
     s = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
     style = re.search(r"<style>(.*?)</style>", s, re.S).group(1)
     header = re.search(r'<header class="top">.*?</header>', s, re.S).group(0)
-    header = header.replace('href="#inicio"', 'href="/"').replace('href="#', 'href="/#')
+    header = header.replace('href="#inicio"', 'href="/"')
+    header = re.sub(r'href="#(?=[a-z])', 'href="/#', header)  # só âncoras; href="#" dos botões de WhatsApp fica para fixar_whats
     footer = re.search(r"<footer>.*?</footer>", s, re.S).group(0)
     footer = re.sub(r'\s*<div class="wrap credit-row">.*?</div>', "", footer, flags=re.S)
     wafloat = re.search(r'<a class="wa-float js-wa".*?</a>', s, re.S).group(0)
