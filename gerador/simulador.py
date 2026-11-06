@@ -36,10 +36,10 @@ CSS = """
 .sim-form .hint{font-size:.78rem;color:var(--muted);margin-top:2px}
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
 .seg button{border:0;background:transparent;padding:9px;border-radius:9px;font-weight:600;cursor:pointer;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--accent);color:#1F1B17}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#0E2A14}
 .res{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;min-width:0}
 .res>*,.sim>*{min-width:0}
-.res-main{background:#1F1B17;color:#fff;border-radius:20px;padding:22px;display:grid;gap:14px}
+.res-main{background:#0E2A14;color:#fff;border-radius:20px;padding:22px;display:grid;gap:14px}
 .res-main small{color:rgba(255,255,255,.7);display:block;font-size:.8rem}
 .res-big{font-family:var(--display);font-size:clamp(2rem,5vw,2.6rem);font-weight:700;color:var(--accent);line-height:1.05}
 .res-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -50,7 +50,7 @@ CSS = """
 .fit{font-size:.85rem;font-weight:600;border-radius:10px;padding:8px 10px}
 .fit.ok{background:rgba(52,199,89,.16);color:#7EE2A0}
 .fit.no{background:rgba(255,99,71,.16);color:#FFB4A6}
-.tag{display:inline-block;font-size:.7rem;font-weight:700;background:var(--accent);color:#1F1B17;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.tag{display:inline-block;font-size:.7rem;font-weight:700;background:var(--accent);color:#0E2A14;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
 .alert{background:var(--accent-soft);border-radius:14px;padding:12px 14px;font-size:.9rem}
 .cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
 .cmp{width:100%;border-collapse:collapse;font-size:.9rem;font-variant-numeric:tabular-nums;min-width:520px}

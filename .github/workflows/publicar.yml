@@ -32,8 +32,6 @@ jobs:
           python-version: "3.12"
       - name: Gerar páginas dos imóveis
         run: python gerador/gerar.py --saida _site
-      - name: Gerar prévia (/previa/, não indexada)
-        run: python previa/montar_previa.py _site/previa
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

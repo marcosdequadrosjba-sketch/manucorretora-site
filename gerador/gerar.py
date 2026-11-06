@@ -9,6 +9,7 @@
 Roda no GitHub Actions (sem custo). Uso local de teste:  python3 gerador/gerar.py --dados teste.json --saida /tmp/site
 """
 import simulador
+import paginas_extras as px
 import argparse, datetime as dt, html, json, os, re, shutil, sys, unicodedata, urllib.parse, urllib.request
 
 SB_URL = "https://hfirfbdpgjakinagjwcr.supabase.co"
@@ -126,9 +127,9 @@ def partes_do_index():
     header = re.search(r'<header class="top">.*?</header>', s, re.S).group(0)
     header = header.replace('href="#inicio"', 'href="/"')
     header = re.sub(r'href="#(?=[a-z])', 'href="/#', header)  # só âncoras; href="#" dos botões de WhatsApp fica para fixar_whats
-    footer = re.search(r"<footer>.*?</footer>", s, re.S).group(0)
+    footer = re.search(r"<footer[^>]*>.*?</footer>", s, re.S).group(0)
     footer = re.sub(r'\s*<div class="wrap credit-row">.*?</div>', "", footer, flags=re.S)
-    wafloat = re.search(r'<a class="wa-float js-wa".*?</a>', s, re.S).group(0)
+    wafloat = re.search(r'<a class="call-float js-wa".*?</a>\s*<a class="wa-float js-wa".*?</a>', s, re.S).group(0)
     seo = re.search(r'<nav class="seo-links".*?</nav>', s, re.S).group(0)
     return style, header, footer, wafloat, seo
 
@@ -201,7 +202,7 @@ a.card{color:inherit;text-decoration:none}
 .gal2-track::-webkit-scrollbar{display:none}
 .gal2-track img{flex:0 0 100%;width:100%;aspect-ratio:16/10;max-height:72vh;object-fit:contain;scroll-snap-align:center;background:#111}
 @media (max-width:760px){.gal2{border-radius:14px}.gal2-track img{aspect-ratio:4/3}}
-.gal2 .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:0;color:#1F1B17}
+.gal2 .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.9);border:0;color:#0E2A14}
 .gal2 .arrow.prev{left:12px}.gal2 .arrow.next{right:12px}
 @media (hover:none){.gal2 .arrow{display:none}}
 .gal2 .gal-count{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-size:.8rem;padding:4px 10px;border-radius:999px}
@@ -238,7 +239,7 @@ def pagina(titulo, descricao, url, corpo, style, header, footer, wafloat, og_img
 <title>{e(titulo)}</title>
 <meta name="description" content="{e(descricao)}">
 <link rel="canonical" href="{e(url)}">
-<meta name="theme-color" content="#FFA41B">
+<meta name="theme-color" content="#0E2A14">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Manu Corretora">
@@ -247,8 +248,8 @@ def pagina(titulo, descricao, url, corpo, style, header, footer, wafloat, og_img
 <meta property="og:url" content="{e(url)}">
 <meta property="og:image" content="{e(og_img)}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="icon" type="image/png" href="/favicon-novo.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon-novo.png">
 {MEDICAO}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -452,10 +453,21 @@ def main():
     for b in BUSCAS:
         gravar(os.path.join(out, b["slug"], "index.html"), pagina_busca(b, todos, partes))
     gravar(os.path.join(out, "simulador-financiamento", "index.html"), pagina_simulador(todos, partes))
+    style, header, footer, wafloat, seo = partes
+    msg = "Olá, Manu! Vi seu site e gostaria de mais informações."
+    gravar(os.path.join(out, "sobre", "index.html"), pagina("Sobre a Manu · Corretora de imóveis em Joaçaba (CRECI 54977 F) | Manu Corretora",
+        "Conheça a Manu, corretora de imóveis em Joaçaba, Herval d'Oeste e Luzerna. Pós-graduada em Gestão Empresarial, mais de 3 anos no mercado imobiliário.",
+        f"{SITE}/sobre/", px.sobre(e, wa(msg)), style + px.CSS, header, footer, wafloat, og_img=f"{SITE}/manu.jpg", jsonld=[AGENTE | {"@context": "https://schema.org"}]))
+    gravar(os.path.join(out, "avaliar-imovel", "index.html"), pagina("Avaliar imóvel em Joaçaba e região · Quanto vale meu imóvel? | Manu Corretora",
+        "Peça a avaliação do seu imóvel em Joaçaba, Herval d'Oeste, Luzerna e região. Preencha os dados e a corretora Manu retorna pelo WhatsApp.",
+        f"{SITE}/avaliar-imovel/", px.avaliar(e), style + px.CSS, header, footer, wafloat, msg_whats="Olá, Manu! Gostaria de uma avaliação do meu imóvel."))
+    gravar(os.path.join(out, "politica-de-privacidade", "index.html"), pagina("Política de Privacidade | Manu Corretora",
+        "Como o site da Manu Corretora trata dados de visitantes, cookies e contatos, de acordo com a LGPD.",
+        f"{SITE}/politica-de-privacidade/", px.privacidade(e), style + px.CSS, header, footer, wafloat))
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
 
     hoje = dt.date.today().isoformat()
-    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8")] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
+    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8"), (f"{SITE}/sobre/", "0.6"), (f"{SITE}/avaliar-imovel/", "0.7"), (f"{SITE}/politica-de-privacidade/", "0.2")] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
     gravar(os.path.join(out, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n")
     print(f"{len(todos)} imóveis, {len(BUSCAS)} páginas de busca, {len(urls)} endereços no sitemap")

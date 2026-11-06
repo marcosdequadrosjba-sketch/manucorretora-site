@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /previa/
 Sitemap: https://manucorretora.com.br/sitemap.xml
