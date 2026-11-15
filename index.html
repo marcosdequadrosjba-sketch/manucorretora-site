@@ -745,10 +745,14 @@ body.rolando .call-float,body.rolando .wa-float{opacity:0;transform:translateY(1
     if (feats.length < 2) document.querySelector(".rail-ctl").hidden = true;
     rail.addEventListener("scroll", () => {
       const w = rail.firstElementChild.getBoundingClientRect().width + 16;
-      ri = Math.round(rail.scrollLeft / w); markDots();
+      ri = Math.round(rail.scrollLeft / w);
+      if (rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4) ri = feats.length - 1;  // fim da faixa = último destaque
+      markDots();
     }, {passive:true});
     ["pointerdown","touchstart","mouseenter","focusin"].forEach(ev => rail.addEventListener(ev, () => clearTimeout(rt), {passive:true}));
     rail.addEventListener("mouseleave", tick);
+    // Celular: depois de tocar/deslizar, retoma a passagem automática alguns segundos depois
+    rail.addEventListener("touchend", () => { clearTimeout(rt); rt = setTimeout(tick, 2500); }, {passive:true});
     markDots(); tick();
   }
   function markDots(){ $("#dots").querySelectorAll("button").forEach((d,k) => d.classList.toggle("on", k===ri)); }
@@ -759,7 +763,7 @@ body.rolando .call-float,body.rolando .wa-float{opacity:0;transform:translateY(1
   }
   function tick(){
     clearTimeout(rt);
-    if (feats.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches) rt = setTimeout(() => goRail(ri+1), 5500);
+    if (feats.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches) rt = setTimeout(() => goRail(ri+1), 4000);
   }
 
   // ---- Detalhe do imóvel ----
