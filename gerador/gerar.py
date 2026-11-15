@@ -468,8 +468,8 @@ def main():
     for bp in blog.POSTS:
         gravar(os.path.join(out, "blog", bp["slug"], "index.html"), pagina(bp["titulo_seo"], bp["resumo"], f"{SITE}/blog/{bp['slug']}/",
             blog.artigo(bp, e, wa("Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."), SITE), style + px.CSS + blog.CSS,
-            header, footer, wafloat, og_img=SITE + bp["imagem"], jsonld=[blog.jsonld(bp, SITE)], msg_whats="Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."))
-    gravar(os.path.join(out, "blog", "index.html"), pagina("Conteúdos sobre imóveis em Joaçaba e região | Manu Corretora",
+            header, footer, wafloat, og_img=SITE + bp["og"], jsonld=[blog.jsonld(bp, SITE)], msg_whats="Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."))
+    gravar(os.path.join(out, "blog", "index.html"), pagina("Blog: dicas sobre comprar e vender imóveis em Joaçaba e região | Manu Corretora",
         "Dicas e análises sobre comprar, vender e financiar imóveis em Joaçaba, Herval d'Oeste, Luzerna e região.",
         f"{SITE}/blog/", blog.lista(e), style + px.CSS + blog.CSS, header, footer, wafloat))
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
