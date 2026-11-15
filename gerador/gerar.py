@@ -223,6 +223,8 @@ a.card{color:inherit;text-decoration:none}
 FIT_JS = """<script>
 window.__fit=function(img){var b=img.parentElement,bw=b.clientWidth,bh=b.clientHeight;if(!img.naturalWidth||!bw||!bh)return;var d=Math.abs((img.naturalWidth/img.naturalHeight)/(bw/bh)-1);b.classList.toggle("fit",d>0.18)};
 document.getElementById("yr")&&(document.getElementById("yr").textContent=new Date().getFullYear());
+(function(){if(!matchMedia("(pointer:coarse)").matches)return;var t,b=document.body;
+addEventListener("scroll",function(){b.classList.add("rolando");clearTimeout(t);t=setTimeout(function(){b.classList.remove("rolando")},450)},{passive:true});})();
 </script>"""
 
 

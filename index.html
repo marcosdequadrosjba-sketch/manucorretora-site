@@ -380,6 +380,10 @@ footer.foot .credit{color:#8F8A7C;opacity:1}
 /* Destaques ~15% menores e 4 imóveis por linha (só computador) */
 @media (min-width:761px){.rail{grid-auto-columns:min(100%,748px)}}
 @media (min-width:1100px){#grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}}
+
+/* Celular: botões flutuantes somem durante a rolagem (evita toque acidental) */
+.call-float,.wa-float{transition:opacity .2s ease,transform .2s ease}
+body.rolando .call-float,body.rolando .wa-float{opacity:0;transform:translateY(16px);pointer-events:none}
 </style>
 </head>
 <body class="m2">
@@ -419,7 +423,7 @@ footer.foot .credit{color:#8F8A7C;opacity:1}
       <video id="hero-video" muted loop playsinline preload="none" poster="/hero-joacaba.jpg"><source src="/hero-joacaba.mp4" type="video/mp4"></video>
     </div>
     <div class="wrap hero2-copy">
-      <h1>Imóveis à venda em Joaçaba, Herval d'Oeste e Luzerna</h1>
+      <h1>Imóveis à venda em Joaçaba, Herval d'Oeste, Luzerna e região</h1>
       <div class="hero2-phr" aria-hidden="true">
         <span>Seu próximo lar começa&nbsp;aqui.</span>
         <span>Do primeiro cálculo à entrega das&nbsp;chaves.</span>
@@ -849,6 +853,10 @@ footer.foot .credit{color:#8F8A7C;opacity:1}
     }
   })();
 })();
+</script>
+<script>
+(function(){if(!matchMedia("(pointer:coarse)").matches)return;var t,b=document.body;
+addEventListener("scroll",function(){b.classList.add("rolando");clearTimeout(t);t=setTimeout(function(){b.classList.remove("rolando")},450)},{passive:true});})();
 </script>
 </body>
 </html>
