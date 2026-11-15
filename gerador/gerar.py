@@ -10,6 +10,7 @@ Roda no GitHub Actions (sem custo). Uso local de teste:  python3 gerador/gerar.p
 """
 import simulador
 import paginas_extras as px
+import blog
 import argparse, datetime as dt, html, json, os, re, shutil, sys, unicodedata, urllib.parse, urllib.request
 
 SB_URL = "https://hfirfbdpgjakinagjwcr.supabase.co"
@@ -464,10 +465,17 @@ def main():
     gravar(os.path.join(out, "politica-de-privacidade", "index.html"), pagina("Política de Privacidade | Manu Corretora",
         "Como o site da Manu Corretora trata dados de visitantes, cookies e contatos, de acordo com a LGPD.",
         f"{SITE}/politica-de-privacidade/", px.privacidade(e), style + px.CSS, header, footer, wafloat))
+    for bp in blog.POSTS:
+        gravar(os.path.join(out, "blog", bp["slug"], "index.html"), pagina(bp["titulo_seo"], bp["resumo"], f"{SITE}/blog/{bp['slug']}/",
+            blog.artigo(bp, e, wa("Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."), SITE), style + px.CSS + blog.CSS,
+            header, footer, wafloat, og_img=SITE + bp["imagem"], jsonld=[blog.jsonld(bp, SITE)], msg_whats="Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."))
+    gravar(os.path.join(out, "blog", "index.html"), pagina("Conteúdos sobre imóveis em Joaçaba e região | Manu Corretora",
+        "Dicas e análises sobre comprar, vender e financiar imóveis em Joaçaba, Herval d'Oeste, Luzerna e região.",
+        f"{SITE}/blog/", blog.lista(e), style + px.CSS + blog.CSS, header, footer, wafloat))
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
 
     hoje = dt.date.today().isoformat()
-    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8"), (f"{SITE}/sobre/", "0.6"), (f"{SITE}/avaliar-imovel/", "0.7"), (f"{SITE}/politica-de-privacidade/", "0.2")] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
+    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8"), (f"{SITE}/sobre/", "0.6"), (f"{SITE}/avaliar-imovel/", "0.7"), (f"{SITE}/politica-de-privacidade/", "0.2"), (f"{SITE}/blog/", "0.6")] + [(f"{SITE}/blog/{bp['slug']}/", "0.7") for bp in blog.POSTS] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
     gravar(os.path.join(out, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n")
     print(f"{len(todos)} imóveis, {len(BUSCAS)} páginas de busca, {len(urls)} endereços no sitemap")
