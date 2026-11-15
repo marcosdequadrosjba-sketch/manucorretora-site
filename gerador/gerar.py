@@ -472,6 +472,23 @@ def main():
     gravar(os.path.join(out, "blog", "index.html"), pagina("Blog: dicas sobre comprar e vender imóveis em Joaçaba e região | Manu Corretora",
         "Dicas e análises sobre comprar, vender e financiar imóveis em Joaçaba, Herval d'Oeste, Luzerna e região.",
         f"{SITE}/blog/", blog.lista(e), style + px.CSS + blog.CSS, header, footer, wafloat))
+    msg_al = "Olá, Manu! Procuro um imóvel para alugar. Tipo: ___ Bairro: ___ Valor até: ___"
+    msg_an = "Olá, Manu! Tenho um imóvel para alugar e gostaria de anunciar com você."
+    corpo_al = f'''
+<div class="wrap pg-narrow inst">
+  <nav class="crumbs" aria-label="Você está em"><a href="/">Início</a> › Aluguel</nav>
+  <span class="creci" style="display:inline-block;margin-top:26px">ALUGUEL · JOAÇABA E REGIÃO</span>
+  <h1 style="font-size:clamp(1.9rem,3.6vw,2.6rem);margin-top:10px">Imóveis para alugar em Joaçaba e região</h1>
+  <p>Também atendo locação em Joaçaba, Herval d'Oeste, Luzerna e região. As opções de aluguel mudam rápido e muitas vezes são fechadas antes de serem anunciadas, por isso o melhor caminho é me contar o que você procura.</p>
+  <div class="cta-band" style="margin:26px 0"><div><strong>Procuro imóvel para alugar</strong>Diga o tipo, o bairro e o valor, e eu te aviso das opções disponíveis.</div>
+    <div class="acts"><a class="btn btn-accent" href="{e(wa(msg_al))}" target="_blank" rel="noopener">Falar com a Manu</a></div></div>
+  <h2 id="anunciar">Tem um imóvel para alugar?</h2>
+  <p>Cuido da divulgação, da seleção dos interessados e da documentação do contrato, para você alugar com segurança e sem perder tempo.</p>
+  <p><a class="btn btn-line" href="{e(wa(msg_an))}" target="_blank" rel="noopener">Quero anunciar meu imóvel</a></p>
+</div>'''
+    gravar(os.path.join(out, "aluguel", "index.html"), pagina("Imóveis para alugar em Joaçaba e região | Manu Corretora",
+        "Procura imóvel para alugar em Joaçaba, Herval d'Oeste ou Luzerna? Conte o que procura para a corretora Manu e receba as opções disponíveis.",
+        f"{SITE}/aluguel/", corpo_al, style + px.CSS, header, footer, wafloat, msg_whats=msg_al))
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
 
     hoje = dt.date.today().isoformat()
