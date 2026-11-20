@@ -82,11 +82,147 @@ CSS = """
 .blog-card div{padding:16px 18px 20px}
 .blog-card h2{font-size:1.15rem;line-height:1.3;margin:6px 0 8px}
 .blog-card p{color:var(--muted);font-size:.94rem;margin:0}
+/* motivos numerados, citação, checklist, quadro do simulador e perguntas frequentes */
+.motivo{display:grid;grid-template-columns:56px minmax(0,1fr);gap:4px 16px;border:1px solid var(--line);border-radius:18px;padding:20px 22px 6px;margin:16px 0;background:var(--bg)}
+.motivo .mn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--brand);color:var(--accent-hi);font-family:var(--display);font-weight:700;font-size:1.2rem}
+.motivo h3{font-size:1.12rem;margin:8px 0 6px}
+.motivo p{margin:0 0 12px}
+.motivo .pr{color:var(--muted);font-size:.98rem}
+.post blockquote{margin:28px 0;padding:4px 0 4px 22px;border-left:4px solid var(--accent);font-family:var(--display);font-size:1.3rem;line-height:1.4;color:var(--ink)}
+.post .check{list-style:none;padding:0}
+.post .check li{position:relative;padding-left:32px}
+.post .check li::before{content:"";position:absolute;left:0;top:5px;width:22px;height:22px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A6A2E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/14px no-repeat}
+.simu{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--surface);border-radius:18px;padding:20px 22px;margin:22px 0}
+.simu div{flex:1;min-width:240px}
+.simu strong{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:4px}
+.simu p{margin:0;color:var(--muted);font-size:.98rem;line-height:1.6}
+.faq details{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0;background:var(--bg)}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-ink);font-size:1.3rem;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:10px 0 0;color:var(--muted)}
+@media (max-width:620px){.motivo{grid-template-columns:1fr;padding:18px 18px 4px}.post blockquote{font-size:1.15rem}}
 """
 
 CREDITO_JBA = 'Joaçaba (SC). Foto: Suhaibharraka, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>, via <a href="https://commons.wikimedia.org/w/index.php?curid=133214067" target="_blank" rel="noopener">Wikimedia Commons</a>'
 
 POSTS = [
+    {
+        "slug": "visitou-imoveis-com-varios-corretores",
+        "titulo": "Visitou imóveis com vários corretores e ainda não encontrou o que busca? Veja por quê",
+        "titulo_seo": "Visitou imóveis com vários corretores e não encontrou? Veja por quê | Manu Corretora",
+        "resumo": "Visitar imóveis com vários corretores nem sempre ajuda. Entenda exclusividade, parceria entre imobiliárias, a documentação do imóvel e como escolher um corretor de imóveis de confiança em Joaçaba e região.",
+        "lead": "Três motivos comuns que levam a esse cansaço, o que a lei diz sobre exclusividade e parceria entre imobiliárias, e como escolher um corretor de imóveis de confiança em Joaçaba e região.",
+        "kicker": "Comprar imóvel",
+        "data": "2026-11-19",
+        "data_br": "19 de novembro de 2026",
+        "capa": "/blog/img/visitou-imoveis-com-varios-corretores.jpg",
+        "capa_alt": "Visitou imóveis com vários corretores e ainda não encontrou o que busca? Artigo da Manu, corretora de imóveis em Joaçaba",
+        "og": "/blog/img/visitou-imoveis-com-varios-corretores-og.jpg",
+        "leitura": "8 min de leitura",
+        "cta_titulo": "Deseja uma assessoria imobiliária com seriedade e compromisso?",
+        "cta_texto": "É só me chamar. Começamos pelo diagnóstico do que você quer e precisa.",
+        "corpo": """
+<div class="tldr"><strong>Resposta curta</strong><p>Na maioria das vezes, o problema não é a falta de imóveis à venda, e sim a falta de direção na busca. Falar com vários corretores ao mesmo tempo costuma repetir os mesmos imóveis e enfraquecer a negociação. Um corretor de confiança, que trabalha em parceria com outras imobiliárias, dá acesso ao mercado com uma estratégia só.</p></div>
+
+<p>Você separou um sábado, visitou três casas com um corretor, dois apartamentos com outro, recebeu uma lista no WhatsApp de um terceiro… e voltou para casa com a sensação de que o imóvel ideal não existe. Se isso soa familiar, você não está sozinho.</p>
+
+<h2>Por que tanta gente procura imóvel com vários corretores</h2>
+<p>Comprar um imóvel é, para a maioria das famílias, a maior decisão financeira da vida. É natural querer ver tudo e não deixar nenhuma oportunidade escapar. E a internet facilita: hoje dá para olhar dezenas de anúncios de casas e apartamentos à venda antes mesmo de marcar a primeira visita.</p>
+<p>O interesse pela casa própria continua alto. Uma pesquisa da Brain Inteligência Estratégica apontou, no início de 2026, que <strong>49% das famílias pretendem comprar um imóvel</strong>, o maior patamar em um ano. Muita gente procurando ao mesmo tempo significa mais concorrência pelos bons imóveis e mais pressa na hora de decidir.</p>
+
+<div class="callout"><b>88%</b><p>dos compradores de imóveis nos Estados Unidos fecharam negócio por meio de um corretor ou imobiliária, segundo a National Association of Realtors (2025). Mesmo com todos os anúncios na internet, quase todo comprador ainda recorre a um profissional para filtrar, negociar e conferir a documentação.</p></div>
+
+<h2>Os três motivos mais comuns</h2>
+<p>No dia a dia como corretora de imóveis em Joaçaba, escuto quase sempre as mesmas três razões de quem já visitou imóveis com vários corretores.</p>
+
+<div class="motivo"><span class="mn">1</span><div>
+  <h3>Medo de perder o imóvel que acha ser o ideal</h3>
+  <p>O comprador acredita que o corretor tem uma “carteira exclusiva” e que falar com mais gente aumenta as chances de achar algo bom.</p>
+  <p class="pr"><strong>Na prática:</strong> os mesmos imóveis aparecem várias vezes, por corretores diferentes, às vezes com preços e condições diferentes. Isso confunde o comprador e passa insegurança ao proprietário.</p>
+</div></div>
+
+<div class="motivo"><span class="mn">2</span><div>
+  <h3>Desejo de comparar condições</h3>
+  <p>Existe a ideia de que corretores diferentes podem oferecer valores, prazos ou poder de barganha distintos para o mesmo imóvel.</p>
+  <p class="pr"><strong>Na prática:</strong> quem define o preço e as condições é o proprietário. Quando vários corretores levam propostas diferentes para o mesmo vendedor, o comprador perde força na negociação em vez de ganhar.</p>
+</div></div>
+
+<div class="motivo"><span class="mn">3</span><div>
+  <h3>Uma péssima experiência com um corretor ruim</h3>
+  <p>Demora na resposta, atendimento “genérico”, falta de condução clara. Quem já passou por isso tende a não confiar em ninguém e a falar com todo mundo.</p>
+  <p class="pr"><strong>Na prática:</strong> a solução não é ter mais corretores, e sim o corretor certo: alguém que escuta, responde e conduz o processo do começo ao fim.</p>
+</div></div>
+
+<h2>Exclusividade e parceria entre imobiliárias: o que muda para você</h2>
+<p>Um corretor pode, sim, trabalhar com <strong>imóveis em exclusividade</strong>: o proprietário autoriza por escrito um único profissional ou imobiliária a vender o imóvel. O Código Civil trata do contrato de corretagem nos artigos 722 a 729 e, no art. 726, garante ao corretor com exclusividade a remuneração integral mesmo que o negócio seja fechado sem a sua mediação, salvo se for comprovada a sua inércia ou ociosidade.</p>
+<p>Isso é bom para o proprietário, porque o corretor investe de verdade na venda. E é bom para o comprador, porque há um responsável claro pelas informações do imóvel.</p>
+<p>Mas exclusividade não significa que só aquele corretor pode mostrar o imóvel. É aí que entra a <strong>parceria entre imobiliárias sérias</strong>: corretores fazem acordos entre si e dividem a comissão. Assim, o seu corretor apresenta imóveis captados por outros profissionais, e você não precisa falar com todo mundo para ter acesso ao mercado imobiliário da região.</p>
+
+<div class="tbl"><table>
+<thead><tr><th></th><th>Vários corretores ao mesmo tempo</th><th>Um corretor de confiança com parcerias</th></tr></thead>
+<tbody>
+<tr><td><strong>Imóveis</strong></td><td>Os mesmos, repetidos</td><td>A carteira própria e a dos parceiros</td></tr>
+<tr><td><strong>Negociação</strong></td><td>Propostas soltas, sem estratégia</td><td>Uma proposta bem fundamentada</td></tr>
+<tr><td><strong>Seu tempo</strong></td><td>Muitas visitas que não fazem sentido</td><td>Poucas visitas, mais certeiras</td></tr>
+<tr><td><strong>Documentação</strong></td><td>Ninguém assume por inteiro</td><td>Um responsável do começo ao fim</td></tr>
+</tbody></table></div>
+
+<blockquote>A parceria entre imobiliárias sérias viabiliza condições e flexibiliza a negociação. Você ganha alcance sem perder o comando da busca.</blockquote>
+
+<h2>O diagnóstico que vem antes da visita</h2>
+<p>Diagnosticar o que você quer e precisa é primordial. É isso que direciona as melhores oportunidades, antes de qualquer visita.</p>
+<ol class="steps2">
+<li><strong>Momento de vida</strong><span>Casal, família crescendo, filhos saindo de casa ou investimento? Cada momento pede um tipo de imóvel.</span></li>
+<li><strong>Localização</strong><span>Quais bairros de Joaçaba, Herval d'Oeste ou Luzerna fazem sentido para a sua rotina de trabalho, escola e deslocamento.</span></li>
+<li><strong>Orçamento real</strong><span>Quanto de entrada você tem, se vai usar financiamento imobiliário ou FGTS e qual parcela cabe no mês sem apertar.</span></li>
+<li><strong>Inegociável e desejável</strong><span>Garagem para dois carros é obrigatória ou seria bom ter? Separar as duas listas evita visitas perdidas.</span></li>
+</ol>
+
+<div class="simu"><div><strong>Descubra quanto você pode financiar</strong><p>Antes de visitar, use o <a href="/simulador-financiamento/">simulador de financiamento imobiliário</a> gratuito: informe renda, entrada e FGTS e veja a parcela nos sistemas SAC e Price, comparando Caixa, Banco do Brasil, Santander, Bradesco, Itaú e cooperativas.</p></div><a class="btn btn-accent" href="/simulador-financiamento/">Simular financiamento</a></div>
+
+<p>Com isso claro, a busca deixa de ser “ver tudo o que aparece” e passa a ser ver só o que tem chance real de virar o seu imóvel.</p>
+
+<h2>Como escolher um corretor de imóveis de confiança</h2>
+<ul class="check">
+<li><strong>Tem CRECI ativo.</strong> Pela Lei 6.530/1978, só pode exercer a corretagem quem é inscrito no Conselho Regional de Corretores de Imóveis. Peça o número e confira no site do CRECI do estado.</li>
+<li><strong>Conhece a região.</strong> Saber o histórico dos bairros e a valorização de cada região faz diferença no preço e na escolha.</li>
+<li><strong>Escuta antes de oferecer.</strong> Se o primeiro contato já é uma lista de imóveis, sem nenhuma pergunta sobre você, desconfie.</li>
+<li><strong>Responde com clareza e no tempo combinado.</strong> O atendimento é o primeiro sinal de como será a negociação.</li>
+<li><strong>Trabalha em parceria.</strong> Pergunte se ele apresenta imóveis de outras imobiliárias. Um profissional sério vai dizer que sim.</li>
+<li><strong>Explica a documentação.</strong> Matrícula, certidões, financiamento, ITBI e escritura não podem ser um mistério para você.</li>
+</ul>
+
+<h2>Documentação: o que conferir antes de comprar imóvel</h2>
+<p>Encontrar o imóvel é só metade do caminho. O documento mais importante é a <strong>certidão de matrícula atualizada</strong>, emitida pelo Registro de Imóveis. Pela Lei 13.097/2015 (arts. 54 a 58), ônus e ações judiciais que possam afetar o imóvel devem constar da matrícula para ter efeito contra o comprador de boa-fé.</p>
+<p>Mesmo assim, uma boa assessoria imobiliária confere também:</p>
+<ul>
+<li>Certidões pessoais do vendedor (cíveis, trabalhistas e fiscais);</li>
+<li>Débitos de IPTU e, se houver, de condomínio;</li>
+<li>Regularidade da construção (habite-se e averbação da área construída);</li>
+<li>Custos da compra, como ITBI, escritura e registro. Veja mais em <a href="/blog/vale-a-pena-comprar-imovel-agora/">vale a pena comprar imóvel agora ou esperar?</a></li>
+</ul>
+
+<h2>Comprar imóvel em Joaçaba com assessoria</h2>
+<p>Encontre o corretor confiável. O imóvel ideal será consequência. Do diagnóstico à entrega das chaves, eu acompanho cada etapa com você em Joaçaba, Herval d'Oeste, Luzerna e região.</p>
+<p>Quer ver o que está disponível agora? Confira os <a href="/#imoveis">imóveis à venda</a>.</p>
+""",
+        "faq": [
+            ("É ruim visitar imóveis com vários corretores ao mesmo tempo?", "Não é proibido, mas costuma gerar visitas repetidas, informações desencontradas e pouca força na negociação. Com um corretor de confiança que trabalha em parceria com outras imobiliárias, você tem acesso às mesmas opções com uma estratégia única de busca e negociação."),
+            ("Se eu falar com um corretor só, vou perder opções de imóveis?", "Não necessariamente. Corretores e imobiliárias sérios fazem parcerias e dividem a comissão entre si, de modo que o seu corretor consegue apresentar imóveis captados por outros profissionais."),
+            ("O que é exclusividade na venda de imóveis?", "É quando o proprietário autoriza por escrito um único corretor ou imobiliária a intermediar a venda. O art. 726 do Código Civil garante a remuneração integral do corretor com exclusividade, mesmo que o negócio seja fechado sem a sua mediação, salvo se for comprovada a sua inércia ou ociosidade."),
+            ("Como saber se um corretor de imóveis é regularizado?", "Peça o número do CRECI e confira a inscrição no site do Conselho Regional de Corretores de Imóveis do estado. Pela Lei 6.530/1978, só pode exercer a corretagem quem é inscrito no CRECI."),
+            ("Como saber quanto posso financiar antes de visitar imóveis?", "Use o simulador de financiamento imobiliário do site com a sua renda, a entrada e o FGTS. Ele calcula a parcela nos sistemas SAC e Price e compara Caixa, Banco do Brasil, Santander, Bradesco, Itaú e cooperativas."),
+        ],
+        "fontes": [
+            ("National Association of Realtors: 2025 Profile of Home Buyers and Sellers", "https://www.nar.realtor/news/economists-outlook/top-10-takeaways-from-nars-2025-profile-of-home-buyers-and-sellers"),
+            ("Intenção de compra de imóveis atinge maior nível em um ano (Exame)", "https://exame.com/mercado-imobiliario/intencao-de-compra-de-imoveis-atinge-maior-nivel-em-um-ano/"),
+            ("Código Civil, Lei 10.406/2002, arts. 722 a 729 (corretagem)", "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm"),
+            ("Lei 6.530/1978: profissão de corretor de imóveis", "https://www.planalto.gov.br/ccivil_03/leis/l6530.htm"),
+            ("Lei 13.097/2015, arts. 54 a 58 (concentração dos atos na matrícula)", "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13097.htm"),
+        ],
+    },
     {
         "slug": "vale-a-pena-comprar-imovel-agora",
         "titulo": "Vale a pena comprar imóvel agora ou esperar? O que os números mostram em 2026",
@@ -192,10 +328,11 @@ def artigo(p, e, wa_link, site):
     <p class="post-lead">{e(p["lead"])}</p>
     <div class="post-meta"><img src="/manu.jpg" alt="Manu, corretora de imóveis" width="44" height="44"><span>Por <strong><a href="/sobre/">Manu</a></strong> · CRECI/SC&nbsp;54977&nbsp;F<br>{e(p["data_br"])} · {e(p["leitura"])}</span></div>
   </header>
-  <figure class="post-cover"><img src="{e(p["capa"])}" alt="{e(p["capa_alt"])}" width="1920" height="1080" fetchpriority="high"><figcaption>{p["capa_credito"]}</figcaption></figure>
+  <figure class="post-cover"><img src="{e(p["capa"])}" alt="{e(p["capa_alt"])}" width="1920" height="1080" fetchpriority="high">{f'<figcaption>{p["capa_credito"]}</figcaption>' if p.get("capa_credito") else ""}</figure>
   <article class="post">
     {p["corpo"]}
-    <div class="post-cta cta-band"><div><strong>Quer montar seu plano de compra?</strong>Acompanhamento imobiliário exclusivo, do primeiro cálculo à entrega das chaves.</div>
+    {faq_html(p, e)}
+    <div class="post-cta cta-band"><div><strong>{e(p.get("cta_titulo", "Quer montar seu plano de compra?"))}</strong>{e(p.get("cta_texto", "Acompanhamento imobiliário exclusivo, do primeiro cálculo à entrega das chaves."))}</div>
       <div class="acts"><a class="btn btn-accent" href="{e(wa_link)}" target="_blank" rel="noopener">Falar com a Manu</a><a class="btn btn-line" href="/simulador-financiamento/" style="color:#fff;border-color:rgba(255,255,255,.5)">Simular financiamento</a></div></div>
     <div class="post-src"><strong>Fontes</strong><ul>{fontes}</ul></div>
   </article>
@@ -220,3 +357,17 @@ def jsonld(p, site):
             "image": [site + p["og"], site + p["capa"]], "datePublished": p["data"], "dateModified": p.get("atualizado", p["data"]),
             "author": AUTORA, "publisher": {"@type": "Organization", "name": "Manu Corretora", "logo": {"@type": "ImageObject", "url": site + "/logo-manu-g.png"}},
             "mainEntityOfPage": f"{site}/blog/{p['slug']}/", "inLanguage": "pt-BR"}
+
+
+def faq_ld(p):
+    """Perguntas frequentes do artigo (campo opcional "faq": lista de (pergunta, resposta)) para o Google."""
+    if not p.get("faq"):
+        return []
+    return [{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p["faq"]]}]
+
+
+def faq_html(p, e):
+    """Bloco visível das perguntas frequentes, com o mesmo texto do faq_ld."""
+    itens = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in p.get("faq", []))
+    return f'<h2>Perguntas frequentes</h2>\n<div class="faq">{itens}</div>' if itens else ""
