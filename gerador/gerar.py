@@ -11,6 +11,7 @@ Roda no GitHub Actions (sem custo). Uso local de teste:  python3 gerador/gerar.p
 import simulador
 import paginas_extras as px
 import blog
+import precos as pc
 import argparse, datetime as dt, html, json, os, re, shutil, sys, unicodedata, urllib.parse, urllib.request
 
 SB_URL = "https://hfirfbdpgjakinagjwcr.supabase.co"
@@ -80,7 +81,9 @@ def preparar(props, photos):
         base = slugify(p["title"])
         slug = base if base not in usados else f"{base}-{p['id'][:6]}"
         usados.add(slug)
-        out.append({**p, "cover": cover, "photos": urls, "beds": beds, "suites": suites, "parking": parking, "slug": slug})
+        cidade = pc.CIDADES.get(pc.ckey(p.get("city")), (p.get("city") or "").strip())  # "Herval d Oeste" -> "Herval d'Oeste"
+        bairro = re.sub(r"\s+", " ", p.get("neighborhood") or "").strip()
+        out.append({**p, "city": cidade, "neighborhood": bairro, "title": re.sub(r"\s+", " ", p["title"]).strip(), "cover": cover, "photos": urls, "beds": beds, "suites": suites, "parking": parking, "slug": slug})
     return out
 
 
@@ -297,10 +300,12 @@ def pagina_imovel(p, todos, partes):
     cards_outros = "".join(card(x) for x in outros)
     bloco_outros = ('<section class="block alt"><div class="wrap"><div class="sec-head"><div><h2>Outros imóveis da Manu</h2></div></div>'
                     f'<div class="grid" id="grid">{cards_outros}</div></div></section>') if outros else ""
-    cidade_slug = {"joacaba": "imoveis-em-joacaba", "herval d'oeste": "imoveis-em-herval-doeste", "luzerna": "imoveis-em-luzerna"}.get(norm(cidade), "imoveis-em-joacaba")
+    cidade_slug = pc.CIDADE_SLUG.get(pc.ckey(cidade), "imoveis-em-joacaba")
+    b_url = BAIRRO_URL.get((pc.bkey(p.get("neighborhood")), pc.ckey(cidade)))
+    b_crumb = f' › <a href="{b_url}">{e(p["neighborhood"])}</a>' if b_url else ""
     corpo = f'''
 <div class="wrap">
-  <nav class="crumbs" aria-label="Você está em"><a href="/">Início</a> › <a href="/{cidade_slug}/">Imóveis em {e(cidade)}</a> › {e(p["title"])}</nav>
+  <nav class="crumbs" aria-label="Você está em"><a href="/">Início</a> › <a href="/{cidade_slug}/">Imóveis em {e(cidade)}</a>{b_crumb} › {e(p["title"])}</nav>
   <div class="gal2" id="gal">
     <div class="gal2-track" id="track">{fotos}</div>
     {nav}
@@ -328,7 +333,7 @@ def pagina_imovel(p, todos, partes):
 {bloco_outros}
 <section class="block"><div class="wrap">
   <div class="sec-head"><div><h2>Mais buscas em Joaçaba e região</h2></div></div>
-  {seo}
+  {seo}{SEO_BAIRROS}
 </div></section>
 <script>
 (function(){{
@@ -352,67 +357,151 @@ def pagina_imovel(p, todos, partes):
     trilha = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
         {"@type": "ListItem", "position": 2, "name": f"Imóveis em {cidade}", "item": f"{SITE}/{cidade_slug}/"},
-        {"@type": "ListItem", "position": 3, "name": p["title"], "item": url}]}
+        *([{"@type": "ListItem", "position": 3, "name": p["neighborhood"], "item": SITE + b_url}] if b_url else []),
+        {"@type": "ListItem", "position": 4 if b_url else 3, "name": p["title"], "item": url}]}
     return pagina(titulo, descricao, url, corpo, style, header, footer, wafloat, og_img=p["cover"], jsonld=[oferta, trilha], msg_whats=msg)
 
 
 # Páginas de busca: cidade e tipo. Textos próprios para cada uma (nada de repetir palavras-chave à toa).
+# "title" aceita {qtd}, que vira " · 6 opções" (imóveis da cidade em "preco") ou some quando não há nenhum.
+# "preco": (tipo, cidade, h2) do bloco "Quanto custa"; os números usam só os imóveis daquela cidade.
 BUSCAS = [
-    {"slug": "imoveis-em-joacaba", "h1": "Imóveis à venda em Joaçaba",
-     "title": "Imóveis à venda em Joaçaba (SC) · Casas, apartamentos e terrenos | Manu Corretora",
+    {"slug": "imoveis-em-joacaba", "h1": "Imóveis à venda em Joaçaba, SC",
+     "title": "Imóveis à venda em Joaçaba, SC{qtd} · Casas, apartamentos e terrenos | Manu Corretora",
      "intro": "Casas, apartamentos e terrenos à venda em Joaçaba, selecionados pela corretora Manu (CRECI 54977 F). Se você procura imóvel no Centro, no Frei Bruno, no Anzolin ou em outro bairro da cidade, fale comigo pelo WhatsApp que eu te ajudo a encontrar a melhor opção.",
-     "filtro": lambda p: True},
+     "filtro": lambda p: pc.ckey(p.get("city")) == "joacaba",
+     "preco": (None, "joacaba", "Quanto custa um imóvel em Joaçaba hoje")},
     {"slug": "imoveis-em-herval-doeste", "h1": "Imóveis em Herval d'Oeste e região",
      "title": "Imóveis à venda em Herval d'Oeste (SC) e região | Manu Corretora",
-     "intro": "Atendo quem quer comprar ou vender imóvel em Herval d'Oeste, cidade vizinha de Joaçaba, com o mesmo cuidado na negociação e na documentação. Abaixo estão os imóveis disponíveis agora na região. Se você procura algo específico em Herval d'Oeste, me chame no WhatsApp: muitas oportunidades chegam antes de serem anunciadas.",
-     "filtro": lambda p: True},
+     "intro": "Atendo quem quer comprar ou vender imóvel em Herval d'Oeste, cidade vizinha de Joaçaba, com o mesmo cuidado na negociação e na documentação. Abaixo estão os imóveis disponíveis agora na região, começando pelos de Herval d'Oeste. Se você procura algo específico na cidade, me chame no WhatsApp: muitas oportunidades chegam antes de serem anunciadas.",
+     "filtro": lambda p: True, "primeiro": "hervaldoeste",
+     "preco": (None, "hervaldoeste", "Quanto custa um imóvel em Herval d'Oeste hoje")},
     {"slug": "imoveis-em-luzerna", "h1": "Imóveis em Luzerna e região",
      "title": "Imóveis à venda em Luzerna (SC) e região | Manu Corretora",
-     "intro": "Também atendo Luzerna, para quem busca casa, apartamento ou terreno com a tranquilidade de uma cidade menor perto de Joaçaba. Veja os imóveis disponíveis na região e me conte o que você procura em Luzerna.",
-     "filtro": lambda p: True},
-    {"slug": "casas-a-venda", "h1": "Casas à venda em Joaçaba, Herval d'Oeste e Luzerna",
-     "title": "Casas à venda em Joaçaba, Herval d'Oeste e Luzerna | Manu Corretora",
-     "intro": "Casas à venda em Joaçaba e região, de casas prontas para morar a opções com terreno amplo. Toque em uma casa para ver todas as fotos, a metragem e o valor.",
-     "filtro": lambda p: p["type"] == "casa"},
-    {"slug": "apartamentos-a-venda", "h1": "Apartamentos à venda em Joaçaba, Herval d'Oeste e Luzerna",
-     "title": "Apartamentos à venda em Joaçaba, Herval d'Oeste e Luzerna | Manu Corretora",
-     "intro": "Apartamentos à venda em Joaçaba e região, com opções no Centro, perto de comércio, escolas e serviços. Veja suítes, vagas de garagem e área de cada um e agende sua visita pelo WhatsApp.",
-     "filtro": lambda p: p["type"] == "apartamento"},
-    {"slug": "terrenos-a-venda", "h1": "Terrenos à venda em Joaçaba, Herval d'Oeste e Luzerna",
-     "title": "Terrenos à venda em Joaçaba, Herval d'Oeste e Luzerna | Manu Corretora",
+     "intro": "Também atendo Luzerna, para quem busca casa, apartamento ou terreno com a tranquilidade de uma cidade menor perto de Joaçaba. Veja os imóveis disponíveis na região, começando pelos de Luzerna, e me conte o que você procura na cidade.",
+     "filtro": lambda p: True, "primeiro": "luzerna",
+     "preco": (None, "luzerna", "Quanto custa um imóvel em Luzerna hoje")},
+    {"slug": "casas-a-venda", "h1": "Casas à venda em Joaçaba, SC",
+     "title": "Casas à venda em Joaçaba, SC{qtd} | Manu Corretora",
+     "intro": "Casas à venda em Joaçaba, de casas prontas para morar a opções de alto padrão e com terreno amplo, e também em Herval d'Oeste e Luzerna. Toque em uma casa para ver todas as fotos, a metragem e o valor.",
+     "filtro": lambda p: p["type"] == "casa", "primeiro": "joacaba",
+     "preco": ("casa", "joacaba", "Quanto custa uma casa em Joaçaba")},
+    {"slug": "apartamentos-a-venda", "h1": "Apartamentos à venda em Joaçaba, SC",
+     "title": "Apartamentos à venda em Joaçaba, SC{qtd} | Manu Corretora",
+     "intro": "Apartamentos à venda em Joaçaba, com opções no Centro, perto de comércio, escolas e serviços, e também em Herval d'Oeste e Luzerna. Veja suítes, vagas de garagem e área de cada um e agende sua visita pelo WhatsApp.",
+     "filtro": lambda p: p["type"] == "apartamento", "primeiro": "joacaba",
+     "preco": ("apartamento", "joacaba", "Quanto custa um apartamento em Joaçaba")},
+    {"slug": "terrenos-a-venda", "h1": "Terrenos à venda em Joaçaba, SC",
+     "title": "Terrenos à venda em Joaçaba, SC{qtd} | Manu Corretora",
      "intro": "Terrenos à venda em Joaçaba e região para construir sua casa ou investir. Veja a metragem e a localização de cada terreno e fale comigo para saber sobre documentação e viabilidade de construção.",
-     "filtro": lambda p: p["type"] == "terreno"},
+     "filtro": lambda p: p["type"] == "terreno", "primeiro": "joacaba",
+     "preco": ("terreno", "joacaba", "Quanto custa um terreno em Joaçaba")},
     {"slug": "imoveis-alto-padrao", "h1": "Imóveis de alto padrão em Joaçaba",
      "title": "Casas e imóveis de alto padrão à venda em Joaçaba (SC) | Manu Corretora",
      "intro": "Casas e imóveis de alto padrão à venda em Joaçaba e região, com acabamento diferenciado, amplos espaços e localização privilegiada. Atendimento personalizado e visitas com hora marcada: fale comigo pelo WhatsApp para conhecer cada imóvel com calma.",
      "filtro": lambda p: float(p.get("price") or 0) >= 1000000 or "alto padr" in (p.get("title") or "").lower()},
 ]
 
+# Preenchidos em main(): endereço de cada página de bairro, {(bairro, cidade): "/imoveis-centro-joacaba/"}, e os links para elas.
+BAIRRO_URL = {}
+SEO_BAIRROS = ""
+
+
+def hoje_br():
+    d = dt.date.today()
+    meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    return f"{d.day} de {meses[d.month - 1]} de {d.year}"
+
+
+def secao_lista(lista, h1_busca):
+    vazio = (f'<div class="empty">No momento não há imóveis deste tipo anunciados no site. '
+             f'<a href="{e(wa("Olá, Manu! Estou procurando: " + h1_busca.lower() + ". Pode me ajudar?"))}" target="_blank" rel="noopener">Me chame no WhatsApp</a> '
+             f'e eu procuro para você.</div>')
+    n = len(lista)
+    return f'''<section class="block"><div class="wrap">
+  <div class="sec-head"><div><h2>{n} {"imóvel disponível" if n == 1 else "imóveis disponíveis"}</h2></div></div>
+  <div class="grid" id="grid">{"".join(card(p) for p in lista) or vazio}</div>
+</div></section>'''
+
+
+def secao_outras(seo):
+    return f'''<section class="block"><div class="wrap">
+  <div class="sec-head"><div><h2>Outras buscas</h2></div></div>
+  {seo}{SEO_BAIRROS}
+  <p style="color:var(--muted);margin-top:18px">Corretora Manu · CRECI 54977 F · Atendimento em Joaçaba, Herval d'Oeste, Luzerna e região pelo WhatsApp {FONE}.</p>
+</div></section>'''
+
+
+def precos_e_faq(lista_local, tipo, local, h2):
+    """Bloco "Quanto custa" + perguntas frequentes com os imóveis de uma cidade ou bairro. local: "em Joaçaba", "no Centro, em Joaçaba"."""
+    bloco, txt = pc.bloco(lista_local, tipo, local, h2, e, brl, hoje_br(), BAIRRO_URL)
+    return bloco, pc.faq(lista_local, tipo, local, txt)
+
 
 def pagina_busca(b, todos, partes):
     style, header, footer, wafloat, seo = partes
     url = f"{SITE}/{b['slug']}/"
     lista = [p for p in todos if b["filtro"](p)]
-    vazio = (f'<div class="empty">No momento não há imóveis deste tipo anunciados no site. '
-             f'<a href="{e(wa("Olá, Manu! Estou procurando: " + b["h1"].lower() + ". Pode me ajudar?"))}" target="_blank" rel="noopener">Me chame no WhatsApp</a> '
-             f'e eu procuro para você.</div>')
+    if b.get("primeiro"):
+        lista.sort(key=lambda p: pc.ckey(p.get("city")) != b["primeiro"])  # ordenação estável: mantém a ordem dentro de cada grupo
+    bloco, itens, qtd = "", [], ""
+    if b.get("preco"):
+        tipo, ck, h2 = b["preco"]
+        local_lista = [p for p in lista if pc.ckey(p.get("city")) == ck]
+        if local_lista:
+            bloco, itens = precos_e_faq(local_lista, tipo, "em " + pc.CIDADES[ck], h2)
+            qtd = f" · {len(local_lista)} {'opção' if len(local_lista) == 1 else 'opções'}"
+    titulo = b["title"].replace("{qtd}", qtd)
     corpo = f'''
 <div class="wrap">
   <nav class="crumbs" aria-label="Você está em"><a href="/">Início</a> › {e(b["h1"])}</nav>
   <div class="pg-head"><h1>{e(b["h1"])}</h1><p>{e(b["intro"])}</p></div>
 </div>
-<section class="block"><div class="wrap">
-  <div class="sec-head"><div><h2>{len(lista)} imóve{"is" if len(lista) != 1 else "l"} disponíve{"is" if len(lista) != 1 else "l"}</h2></div></div>
-  <div class="grid" id="grid">{"".join(card(p) for p in lista) or vazio}</div>
-</div></section>
-<section class="block alt"><div class="wrap">
-  <div class="sec-head"><div><h2>Outras buscas</h2></div></div>
-  {seo}
-  <p style="color:var(--muted);margin-top:18px">Corretora Manu · CRECI 54977 F · Atendimento em Joaçaba, Herval d'Oeste, Luzerna e região pelo WhatsApp {FONE}.</p>
-</div></section>'''
-    itens = {"@context": "https://schema.org", "@type": "ItemList", "name": b["h1"], "itemListElement": [
+{secao_lista(lista, b["h1"])}
+{bloco}
+{pc.faq_html(itens, e)}
+{secao_outras(seo)}'''
+    lista_ld = {"@context": "https://schema.org", "@type": "ItemList", "name": b["h1"], "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/imovel/{p['slug']}/"} for i, p in enumerate(lista)]}
-    return pagina(b["title"], b["intro"][:300], url, corpo, style, header, footer, wafloat, jsonld=[itens])
+    return pagina(titulo, b["intro"][:300], url, corpo, style + blog.CSS, header, footer, wafloat, jsonld=[lista_ld] + pc.faq_ld(itens))
+
+
+def pagina_bairro(bd, partes):
+    """Página de um bairro com imóveis: /imoveis-centro-joacaba/."""
+    style, header, footer, wafloat, seo = partes
+    lista = bd["imoveis"]
+    nome, cidade = bd["nome"], bd["cidade"]
+    tipos, tipo = pc.tipos_titulo(lista)
+    no = f"{pc.prep(nome)} {nome}"
+    h1 = f"{tipos} à venda {no}, {cidade}"
+    url = f"{SITE}/{bd['slug']}/"
+    cidade_slug = pc.CIDADE_SLUG.get(pc.ckey(cidade), "imoveis-em-joacaba")
+    sobre = pc.SOBRE_BAIRRO.get(pc.bkey(nome), "")
+    n = len(lista)
+    intro = (f"{n} {'imóvel' if n == 1 else 'imóveis'} à venda {no}, em {cidade}, com fotos, metragem e valor. "
+             + (sobre + " " if sobre else "")
+             + f"Se você procura imóvel {no} e não encontrou o que precisa aqui, fale comigo pelo WhatsApp: trabalho em parceria com outras imobiliárias da região.")
+    sing, _, g = pc.TIPO_TXT.get(tipo, pc.TIPO_TXT[None])
+    h2 = f"Quanto custa {'uma' if g == 'f' else 'um'} {sing} {no}"
+    bloco, itens = precos_e_faq(lista, tipo, f"{no}, em {cidade}", h2)
+    corpo = f'''
+<div class="wrap">
+  <nav class="crumbs" aria-label="Você está em"><a href="/">Início</a> › <a href="/{cidade_slug}/">Imóveis em {e(cidade)}</a> › {e(nome)}</nav>
+  <div class="pg-head"><h1>{e(h1)}</h1><p>{e(intro)}</p></div>
+</div>
+{secao_lista(lista, h1)}
+{bloco}
+{pc.faq_html(itens, e)}
+{secao_outras(seo)}'''
+    titulo = f"{h1} (SC) | Manu Corretora"
+    lista_ld = {"@context": "https://schema.org", "@type": "ItemList", "name": h1, "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "url": f"{SITE}/imovel/{p['slug']}/"} for i, p in enumerate(lista)]}
+    trilha = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": f"Imóveis em {cidade}", "item": f"{SITE}/{cidade_slug}/"},
+        {"@type": "ListItem", "position": 3, "name": nome, "item": url}]}
+    return pagina(titulo, intro[:300], url, corpo, style + blog.CSS, header, footer, wafloat, jsonld=[lista_ld, trilha] + pc.faq_ld(itens),
+                  msg_whats=f"Olá, Manu! Procuro imóvel {no}, em {cidade}.")
 
 
 # ---------------------------------------------------------------- gravação
@@ -429,6 +518,29 @@ def pagina_simulador(todos, partes):
            "provider": AGENTE}
     html_txt = pagina(titulo, desc, url, corpo, style + simulador.CSS, header, footer, wafloat, jsonld=[faq], msg_whats="Olá, Manu! Quero fazer uma simulação de financiamento.")
     return html_txt
+
+
+def post_dinamico(bp, todos, bairros):
+    """Artigo com números ao vivo: troca as marcas {{...}} do corpo e das perguntas pelos preços atuais de Joaçaba."""
+    jba = [p for p in todos if pc.ckey(p.get("city")) == "joacaba"]
+    casas = [p for p in jba if p["type"] == "casa"]
+    aptos = [p for p in jba if p["type"] == "apartamento"]
+    t_casa = pc.resumo_txt(casas, "casa", "em Joaçaba", brl)
+    t_apto = pc.resumo_txt(aptos, "apartamento", "em Joaçaba", brl)
+    resumo = " ".join(x for x in [t_casa, t_apto] if x) or "No momento não há casas nem apartamentos de Joaçaba anunciados no site."
+    tabelas = (pc.tabela_tipos(jba, e, brl) or "") + (
+        '<h3 style="margin-top:28px">Por bairro</h3>' + pc.tabela_bairros(jba, e, brl, BAIRRO_URL) if pc.tabela_bairros(jba, e, brl) else "")
+    links = ", ".join(f'<a href="/{bd["slug"]}/">{e(bd["nome"])}</a>' for bd in sorted(bairros.values(), key=lambda x: x["nome"]) if bd["cidade"] == "Joaçaba")
+    marcas = {"{{RESUMO_PRECOS}}": e(resumo), "{{TABELAS_PRECOS}}": tabelas, "{{DATA}}": hoje_br(), "{{LINKS_BAIRROS}}": links or "",
+              "{{FAQ_CASA}}": t_casa or "No momento não há casas de Joaçaba anunciadas no site; fale com a Manu para saber das opções disponíveis.",
+              "{{FAQ_APTO}}": t_apto or "No momento não há apartamentos de Joaçaba anunciados no site; fale com a Manu para saber das opções disponíveis."}
+    def troca(txt):
+        for k, v in marcas.items():
+            txt = txt.replace(k, v)
+        return txt
+    return {**bp, "corpo": troca(bp["corpo"]), "faq": [(troca(q), troca(a)) for q, a in bp.get("faq", [])],
+            "atualizado": dt.date.today().isoformat(),
+            "data_br": bp["data_br"] + ("" if bp["data"] == dt.date.today().isoformat() else " · atualizado em " + hoje_br())}
 
 
 def gravar(caminho, conteudo):
@@ -450,11 +562,25 @@ def main():
     if os.path.abspath(out) != ROOT:
         shutil.copytree(ROOT, out, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".git", "gerador", ".github", "_site"))
 
+    global SEO_BAIRROS
+    bairros = pc.bairros(todos)
+    BAIRRO_URL.update({k: f"/{bd['slug']}/" for k, bd in bairros.items()})
+    SEO_BAIRROS = ('<nav class="seo-links" aria-label="Buscas por bairro" style="margin-top:8px">'
+                   + "".join(f'<a href="/{bd["slug"]}/">Imóveis {e(pc.prep(bd["nome"]))} {e(bd["nome"])}</a>' for bd in sorted(bairros.values(), key=lambda x: (x["cidade"] != "Joaçaba", x["nome"])))
+                   + "</nav>") if bairros else ""
+
     shutil.rmtree(os.path.join(out, "imovel"), ignore_errors=True)
     for p in todos:
         gravar(os.path.join(out, "imovel", p["slug"], "index.html"), pagina_imovel(p, todos, partes))
     for b in BUSCAS:
         gravar(os.path.join(out, b["slug"], "index.html"), pagina_busca(b, todos, partes))
+    for bd in bairros.values():
+        gravar(os.path.join(out, bd["slug"], "index.html"), pagina_bairro(bd, partes))
+    if SEO_BAIRROS and os.path.abspath(out) != ROOT:  # links dos bairros também na página inicial (só na cópia publicada, nunca no index.html original)
+        ip = os.path.join(out, "index.html")
+        ix = open(ip, encoding="utf-8").read()
+        ix = re.sub(r'(<nav class="seo-links".*?</nav>)', lambda m: m.group(1) + SEO_BAIRROS, ix, count=1, flags=re.S)
+        gravar(ip, ix)
     gravar(os.path.join(out, "simulador-financiamento", "index.html"), pagina_simulador(todos, partes))
     style, header, footer, wafloat, seo = partes
     msg = "Olá, Manu! Vi seu site e gostaria de mais informações."
@@ -467,7 +593,8 @@ def main():
     gravar(os.path.join(out, "politica-de-privacidade", "index.html"), pagina("Política de Privacidade | Manu Corretora",
         "Como o site da Manu Corretora trata dados de visitantes, cookies e contatos, de acordo com a LGPD.",
         f"{SITE}/politica-de-privacidade/", px.privacidade(e), style + px.CSS, header, footer, wafloat))
-    for bp in blog.POSTS:
+    posts = [post_dinamico(bp, todos, bairros) if bp.get("dinamico") else bp for bp in blog.POSTS]
+    for bp in posts:
         gravar(os.path.join(out, "blog", bp["slug"], "index.html"), pagina(bp["titulo_seo"], bp["resumo"], f"{SITE}/blog/{bp['slug']}/",
             blog.artigo(bp, e, wa("Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."), SITE), style + px.CSS + blog.CSS,
             header, footer, wafloat, og_img=SITE + bp["og"], jsonld=[blog.jsonld(bp, SITE)] + blog.faq_ld(bp), msg_whats="Olá, Manu! Li o artigo no seu site e quero montar meu plano de compra."))
@@ -494,10 +621,10 @@ def main():
     gravar(os.path.join(out, "imoveis.json"), json.dumps({p["id"]: p["slug"] for p in todos}, ensure_ascii=False))
 
     hoje = dt.date.today().isoformat()
-    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8"), (f"{SITE}/sobre/", "0.6"), (f"{SITE}/avaliar-imovel/", "0.7"), (f"{SITE}/politica-de-privacidade/", "0.2"), (f"{SITE}/blog/", "0.6")] + [(f"{SITE}/blog/{bp['slug']}/", "0.7") for bp in blog.POSTS] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
+    urls = [(SITE + "/", "1.0")] + [(f"{SITE}/{b['slug']}/", "0.8") for b in BUSCAS] + [(f"{SITE}/simulador-financiamento/", "0.8"), (f"{SITE}/sobre/", "0.6"), (f"{SITE}/avaliar-imovel/", "0.7"), (f"{SITE}/politica-de-privacidade/", "0.2"), (f"{SITE}/blog/", "0.6")] + [(f"{SITE}/{bd['slug']}/", "0.7") for bd in bairros.values()] + [(f"{SITE}/blog/{bp['slug']}/", "0.7") for bp in blog.POSTS] + [(f"{SITE}/imovel/{p['slug']}/", "0.9") for p in todos]
     gravar(os.path.join(out, "sitemap.xml"), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod><priority>{pr}</priority></url>\n" for u, pr in urls) + "</urlset>\n")
-    print(f"{len(todos)} imóveis, {len(BUSCAS)} páginas de busca, {len(urls)} endereços no sitemap")
+    print(f"{len(todos)} imóveis, {len(BUSCAS)} páginas de busca, {len(bairros)} bairros, {len(urls)} endereços no sitemap")
 
 
 if __name__ == "__main__":

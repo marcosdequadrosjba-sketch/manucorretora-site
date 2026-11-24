@@ -109,6 +109,75 @@ CREDITO_JBA = 'Joaçaba (SC). Foto: Suhaibharraka, <a href="https://creativecomm
 
 POSTS = [
     {
+        # "dinamico": as marcas {{...}} são trocadas pelos preços atuais dos imóveis a cada geração (ver post_dinamico em gerar.py)
+        "dinamico": True,
+        "slug": "preco-de-imoveis-em-joacaba",
+        "titulo": "Quanto custa uma casa ou um apartamento em Joaçaba em 2026?",
+        "titulo_seo": "Preço de casas e apartamentos em Joaçaba (SC) em 2026 | Manu Corretora",
+        "resumo": "Quanto custa uma casa ou um apartamento em Joaçaba (SC): faixas de preço por tipo e por bairro, atualizadas com os imóveis à venda, o que mais pesa no valor e os custos além do preço.",
+        "lead": "Faixas de preço por tipo de imóvel e por bairro, atualizadas automaticamente com os imóveis à venda, e o que mais pesa no valor de uma casa ou de um apartamento em Joaçaba.",
+        "kicker": "Mercado em Joaçaba",
+        "data": "2026-11-24",
+        "data_br": "24 de novembro de 2026",
+        "capa": "/blog/img/preco-de-imoveis-em-joacaba.jpg",
+        "capa_alt": "Quanto custa uma casa ou um apartamento em Joaçaba em 2026? Artigo da Manu, corretora de imóveis em Joaçaba",
+        "og": "/blog/img/preco-de-imoveis-em-joacaba-og.jpg",
+        "leitura": "6 min de leitura",
+        "cta_titulo": "Quer saber o preço justo do imóvel que você quer comprar ou vender?",
+        "cta_texto": "Me chame: eu comparo com imóveis parecidos no mesmo bairro e te explico o porquê de cada valor.",
+        "corpo": """
+<div class="tldr"><strong>Resposta curta</strong><p>{{RESUMO_PRECOS}} O preço muda muito de um bairro para outro e com o tamanho, a garagem e o estado do imóvel. As tabelas abaixo são atualizadas automaticamente com os imóveis à venda no site.</p></div>
+
+<h2>Preços de imóveis em Joaçaba hoje</h2>
+<p>Os números abaixo vêm dos imóveis de Joaçaba anunciados no site da Manu e mudam sempre que um imóvel é vendido ou um novo chega. São preços pedidos, ou seja, o ponto de partida da negociação.</p>
+{{TABELAS_PRECOS}}
+<p class="note">Atualizado em {{DATA}}. Imóveis anunciados pela Manu Corretora em Joaçaba (SC).</p>
+
+<h2>Por que Joaçaba não aparece nos índices de preço</h2>
+<p>O Índice FipeZAP, o mais usado no Brasil para acompanhar o preço dos imóveis, cobre 56 cidades, quase todas capitais e cidades grandes. Joaçaba, Herval d'Oeste e Luzerna ficam de fora. No país, o preço médio de venda dos imóveis residenciais subiu <strong>5,44% nos 12 meses até outubro de 2026</strong>, acima da inflação, mas isso mostra só a tendência geral.</p>
+<p>Em cidades do porte de Joaçaba, o retrato do mercado vem dos imóveis à venda e das vendas que de fato acontecem. Por isso a melhor referência é comparar imóveis parecidos no mesmo bairro, e não uma média da cidade inteira.</p>
+
+<h2>O que mais pesa no preço de um imóvel em Joaçaba</h2>
+<ul class="cards2">
+<li><strong>Bairro e acesso</strong><span>Proximidade do Centro, de escolas, do comércio e das vias principais faz diferença no valor, assim como a vizinhança e a vista.</span></li>
+<li><strong>Tipo e tamanho</strong><span>Área construída, número de quartos e suítes, e se é casa ou apartamento. Em casas, o tamanho do terreno também conta.</span></li>
+<li><strong>Garagem</strong><span>Em bairros com pouca vaga na rua, como o Centro, cada vaga de garagem pesa no preço e na procura.</span></li>
+<li><strong>Estado e documentação</strong><span>Imóvel reformado e com documentação em dia (matrícula, habite-se e área averbada) vende mais rápido e pode ser financiado.</span></li>
+</ul>
+
+<h2>Casa ou apartamento: o que cabe no seu orçamento</h2>
+<p>Antes de comparar preços, vale saber quanto você consegue pagar. Com renda, entrada e FGTS, dá para estimar o valor máximo do imóvel e a parcela do financiamento.</p>
+<div class="simu"><div><strong>Descubra quanto você pode financiar</strong><p>O <a href="/simulador-financiamento/">simulador de financiamento imobiliário</a> é gratuito e mostra a parcela nos sistemas SAC e Price, comparando Caixa, Banco do Brasil, Santander, Bradesco, Itaú e cooperativas.</p></div><a class="btn btn-accent" href="/simulador-financiamento/">Simular financiamento</a></div>
+
+<h2>Quanto separar além do preço</h2>
+<p>Quem compra imóvel precisa reservar dinheiro para o ITBI (imposto municipal, com alíquota definida pela prefeitura de cada cidade), as taxas de escritura e registro em cartório e, no financiamento, a avaliação e as tarifas do banco. Esses custos quase nunca entram no financiamento. Veja mais em <a href="/blog/vale-a-pena-comprar-imovel-agora/">vale a pena comprar imóvel agora ou esperar?</a></p>
+
+<h2>Como saber se o preço é justo</h2>
+<ol class="steps2">
+<li><strong>Compare no mesmo bairro</strong><span>Veja imóveis parecidos na mesma região: {{LINKS_BAIRROS}}.</span></li>
+<li><strong>Olhe o metro quadrado</strong><span>Divida o preço pela área construída para comparar imóveis de tamanhos diferentes.</span></li>
+<li><strong>Confira a documentação</strong><span>Um preço baixo pode esconder pendências na matrícula ou área construída sem averbação.</span></li>
+<li><strong>Peça uma avaliação</strong><span>Se você vai vender, a <a href="/avaliar-imovel/">avaliação do imóvel</a> considera vendas reais da região e o estado do seu imóvel.</span></li>
+</ol>
+
+<h2>Comprar imóvel em Joaçaba com acompanhamento</h2>
+<p>Do primeiro cálculo à entrega das chaves, eu acompanho cada etapa com você em Joaçaba, Herval d'Oeste, Luzerna e região, e trabalho em parceria com outras imobiliárias para mostrar também imóveis que não estão no site.</p>
+<p>Veja as <a href="/casas-a-venda/">casas à venda em Joaçaba</a>, os <a href="/apartamentos-a-venda/">apartamentos à venda</a> e os <a href="/terrenos-a-venda/">terrenos</a>.</p>
+""",
+        "faq": [
+            ("Quanto custa uma casa em Joaçaba?", "{{FAQ_CASA}} O valor depende do bairro, do tamanho, da garagem e do estado do imóvel."),
+            ("Quanto custa um apartamento em Joaçaba?", "{{FAQ_APTO}} Apartamentos no Centro, perto de comércio e serviços, costumam ser os mais procurados."),
+            ("Joaçaba faz parte do Índice FipeZAP?", "Não. O FipeZAP acompanha 56 cidades brasileiras, e Joaçaba não está entre elas. A melhor referência local é comparar imóveis parecidos no mesmo bairro."),
+            ("Como saber quanto vale o meu imóvel em Joaçaba?", "Peça uma avaliação a um corretor com CRECI que conheça a região. A Manu avalia com base em imóveis parecidos e vendas reais no mesmo bairro, sem compromisso, pela página Avaliar imóvel do site."),
+            ("Quais custos existem além do preço do imóvel?", "ITBI, cobrado pela prefeitura, taxas de escritura e registro em cartório e, no financiamento, a avaliação e as tarifas do banco. Na maioria dos casos esses custos não entram no financiamento."),
+        ],
+        "fontes": [
+            ("FipeZAP: preço dos imóveis sobe 0,48% em outubro de 2026 (BP Money)", "https://bpmoney.com.br/educacao-financeira/preco-imoveis-sobe-048-outubro-cidades-mais-caras-fipezap/"),
+            ("Índice FipeZAP (Fipe)", "https://www.fipe.org.br/pt-br/indices/fipezap/"),
+            ("Imóveis anunciados pela Manu Corretora em Joaçaba (SC)", "https://manucorretora.com.br/imoveis-em-joacaba/"),
+        ],
+    },
+    {
         "slug": "visitou-imoveis-com-varios-corretores",
         "titulo": "Visitou imóveis com vários corretores e ainda não encontrou o que busca? Veja por quê",
         "titulo_seo": "Visitou imóveis com vários corretores e não encontrou? Veja por quê | Manu Corretora",
