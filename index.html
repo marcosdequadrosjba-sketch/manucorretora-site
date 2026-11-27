@@ -330,12 +330,12 @@ footer.foot .credit{color:#8F8A7C;opacity:1}
 @media (max-width:760px){footer.foot{padding-bottom:70px}}
 
 /* ===== v3: barra de menu, topo com vídeo e busca com abas ===== */
-.menubar{background:var(--brand-2);border-top:1px solid rgba(201,161,90,.35);box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.menubar{background:var(--surface);border-top:3px solid var(--accent);border-bottom:1px solid var(--line);box-shadow:0 2px 0 rgba(0,0,0,.04)}
 .menubar .wrap{display:flex;align-items:stretch;height:52px;gap:0}
 .menubar .mi{position:relative;display:flex}
-.menubar .mi>a,.menubar .mi>button{display:flex;align-items:center;gap:6px;padding:0 18px;color:#EEE7D8;text-decoration:none;font-weight:600;font-size:.95rem;background:none;border:0;cursor:pointer;border-right:1px solid rgba(255,255,255,.08);white-space:nowrap}
-.menubar .mi:first-child>a{border-left:1px solid rgba(255,255,255,.08)}
-.menubar .mi>a:hover,.menubar .mi>button:hover,.menubar .mi:focus-within>button,.menubar .mi>a[aria-current]{background:rgba(255,255,255,.07);color:#fff;box-shadow:inset 0 -3px 0 var(--accent)}
+.menubar .mi>a,.menubar .mi>button{display:flex;align-items:center;gap:6px;padding:0 18px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;background:none;border:0;cursor:pointer;border-right:1px solid var(--line);white-space:nowrap}
+.menubar .mi:first-child>a{border-left:1px solid var(--line)}
+.menubar .mi>a:hover,.menubar .mi>button:hover,.menubar .mi:focus-within>button,.menubar .mi>a[aria-current]{background:var(--bg);color:var(--accent-ink);box-shadow:inset 0 -3px 0 var(--accent)}
 .menubar .car{width:10px;height:10px;opacity:.8}
 .menubar .sub{position:absolute;top:100%;left:0;min-width:240px;background:var(--bg);border:1px solid var(--line);border-radius:0 0 14px 14px;box-shadow:var(--shadow);padding:8px;display:none;z-index:30}
 .menubar .mi:hover .sub,.menubar .mi:focus-within .sub{display:block}
