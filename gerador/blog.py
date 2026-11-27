@@ -109,6 +109,109 @@ CREDITO_JBA = 'Joaçaba (SC). Foto: Suhaibharraka, <a href="https://creativecomm
 
 POSTS = [
     {
+        "slug": "primeiro-imovel-esperar-momento-perfeito",
+        "titulo": "Primeiro imóvel: esperar o momento perfeito pode ter custado mais de 19% do seu dinheiro",
+        "titulo_seo": "Primeiro imóvel: esperar o momento perfeito custa caro | Manu Corretora Joaçaba",
+        "resumo": "Os imóveis valorizaram 19,4% no Brasil desde 2024, segundo o FipeZap. Entenda por que o primeiro imóvel não precisa ser o dos sonhos, como comprar por etapas e como começar a buscar imóveis em Joaçaba, Herval d'Oeste e Luzerna, para morar ou investir.",
+        "lead": "De janeiro de 2024 a setembro de 2026, o preço médio dos imóveis subiu 19,4% no Brasil. Veja o que isso significa para quem está indeciso, por que o primeiro imóvel pode ser um degrau e como planejar a compra em Joaçaba e região sem agir por impulso.",
+        "kicker": "Comprar imóvel",
+        "data": "2026-11-27",
+        "data_br": "27 de novembro de 2026",
+        "capa": "/blog/img/primeiro-imovel-esperar-momento-perfeito.jpg",
+        "capa_alt": "Primeiro imóvel: esperar o momento perfeito custou mais de 19% desde 2024. Artigo da Manu, corretora de imóveis em Joaçaba",
+        "og": "/blog/img/primeiro-imovel-esperar-momento-perfeito-og.jpg",
+        "leitura": "7 min de leitura",
+        "cta_titulo": "O momento perfeito é você quem faz.",
+        "cta_texto": "Para morar ou para investir, me chame: será um prazer entender o seu momento e te ajudar a começar o quanto antes.",
+        "corpo": """
+<div class="tldr"><strong>Resposta curta</strong><p>Quem adiou a compra de um imóvel desde 2024 viu os preços subirem 19,4% em média no Brasil, segundo o Índice FipeZap. O primeiro imóvel não precisa ser o dos sonhos: pode ser o que cabe no seu orçamento agora e funcionar como um degrau para o próximo. Com planejamento, sem agir por impulso, comprar antes costuma custar menos do que esperar.</p></div>
+
+<p>Você possivelmente perdeu mais de 19% do seu dinheiro desde 2024. Não porque fez um mau negócio, mas porque não fez nenhum. Se você está indeciso sobre comprar um imóvel, este foi o acumulado da valorização imobiliária média no período: o mesmo imóvel que você olhou no começo de 2024 hoje custa, em média, quase um quinto a mais.</p>
+
+<h2>Valorização imobiliária desde 2024: os números</h2>
+<p>O Índice FipeZap acompanha o preço de venda de imóveis residenciais em 56 cidades brasileiras e é a principal referência de preços do mercado imobiliário no país. Nos últimos três períodos, todos fecharam em alta:</p>
+<div class="chart" role="img" aria-label="Valorização dos imóveis residenciais no Brasil: 7,73% em 2024, 6,52% em 2025 e 4,04% de janeiro a setembro de 2026">
+  <h3>Alta do preço médio dos imóveis residenciais</h3>
+  <p class="sub">Brasil, Índice FipeZap de venda</p>
+  <div class="bar"><span>2024</span><i style="width:100%"></i><b>7,73%</b></div>
+  <div class="bar"><span>2025</span><i style="width:84%"></i><b>6,52%</b></div>
+  <div class="bar hl"><span>2026*</span><i style="width:52%"></i><b>4,04%</b></div>
+  <small>*De janeiro a setembro de 2026. Fonte: Fipe, Índice FipeZap.</small>
+</div>
+<div class="callout"><b>19,4%</b><p>é a valorização acumulada de janeiro de 2024 a setembro de 2026. Os percentuais não se somam simplesmente (7,73 + 6,52 + 4,04 = 18,29): cada alta incide sobre um preço que já tinha subido, por isso o acumulado é maior.</p></div>
+<p>Na prática, um imóvel de <strong>R$ 350 mil</strong> no início de 2024 passaria a valer cerca de R$ 377 mil no fim de 2024, R$ 401,6 mil no fim de 2025 e <strong>R$ 417,9 mil</strong> em setembro de 2026. São quase <strong>R$ 68 mil a mais</strong> para comprar o mesmo imóvel, um valor que, em muitos casos, supera a entrada que a pessoa estava juntando.</p>
+<p class="note">Simulação ilustrativa com a média nacional do FipeZap. A valorização real varia por cidade, bairro e tipo de imóvel.</p>
+
+<h2>E em Joaçaba, Herval d'Oeste e Luzerna?</h2>
+<p>Joaçaba e as cidades vizinhas do Meio-Oeste catarinense não entram no FipeZap, que acompanha capitais e cidades maiores. Os números nacionais mostram a tendência, mas o preço de um imóvel aqui depende do bairro, do tipo, da garagem e do estado de conservação. Para ter uma referência local, veja <a href="/blog/preco-de-imoveis-em-joacaba/">quanto custa uma casa ou um apartamento em Joaçaba</a>, com faixas de preço atualizadas pelos imóveis à venda.</p>
+<p>O que se vê no dia a dia é uma procura firme por imóveis bem localizados, prontos para morar e com documentação em dia, tanto de famílias da região quanto de quem chega para trabalhar ou estudar em Joaçaba, sede da Unoesc e polo de comércio e serviços do Meio-Oeste.</p>
+
+<h2>O primeiro imóvel não precisa ser o imóvel dos seus sonhos</h2>
+<p>Um dos motivos mais comuns para adiar a compra é esperar juntar dinheiro para o imóvel ideal: a casa com quintal, o apartamento com duas suítes, o bairro preferido. O problema é que, enquanto a poupança cresce, o preço do imóvel dos sonhos também cresce.</p>
+<p>O primeiro imóvel deve ser o que está <strong>ao seu alcance agora</strong>. Um apartamento menor, uma casa em um bairro em desenvolvimento ou um imóvel que precisa de pequenos ajustes podem ser o ponto de partida. Ele para de pagar aluguel para os outros, começa a construir patrimônio e acompanha a valorização do mercado.</p>
+<ul class="cards2">
+<li><strong>Para de pagar aluguel</strong><span>A parcela do financiamento vai para um patrimônio seu, e não para o de outra pessoa.</span></li>
+<li><strong>Entra na valorização</strong><span>Quem já tem um imóvel acompanha a alta dos preços em vez de correr atrás dela.</span></li>
+<li><strong>Vira a próxima entrada</strong><span>Ao vender ou dar o imóvel como parte do pagamento, você chega ao próximo com mais capital.</span></li>
+<li><strong>Ganha histórico de crédito</strong><span>Um financiamento em dia melhora o relacionamento com o banco para a próxima compra.</span></li>
+</ul>
+
+<h2>Não é sobre agir por impulso</h2>
+<p>Comprar antes não significa comprar sem planejamento financeiro. Você vai conquistar o imóvel dos sonhos, sim, mesmo sem agir por impulso. O ponto de partida é saber com clareza quanto você pode pagar:</p>
+<ul class="check">
+<li><strong>Reserva de emergência separada da entrada.</strong> O dinheiro da entrada não deve ser o mesmo que segura imprevistos.</li>
+<li><strong>Parcela que cabe no mês.</strong> Os bancos costumam limitar a parcela do financiamento imobiliário a cerca de 30% da renda familiar.</li>
+<li><strong>Entrada e FGTS.</strong> Em geral, o financiamento cobre até 80% do valor do imóvel, e o FGTS pode ajudar na entrada, dentro das regras do fundo.</li>
+<li><strong>Custos além do preço.</strong> ITBI, escritura e registro precisam entrar na conta desde o começo.</li>
+</ul>
+<p>Para ter uma ideia rápida do valor do imóvel e da parcela, use o <a href="/simulador-financiamento/">simulador de financiamento imobiliário</a> do site.</p>
+
+<h2>Conquistar por etapas: como funciona na prática</h2>
+<p>A maioria das pessoas não compra o imóvel definitivo de primeira. Conquista por etapas, e isso é uma estratégia, não um fracasso.</p>
+<ol class="steps2">
+<li><strong>Organize a base</strong><span>Reserva de emergência, entrada, FGTS disponível e uma parcela que caiba no orçamento sem apertar.</span></li>
+<li><strong>Compre o imóvel possível</strong><span>Escolha o melhor imóvel dentro desse limite, priorizando localização e documentação em dia, que são o que mais protege a revenda.</span></li>
+<li><strong>Deixe o tempo trabalhar</strong><span>Enquanto você paga as parcelas, o saldo devedor cai e o imóvel tende a valorizar.</span></li>
+<li><strong>Dê o próximo passo</strong><span>Com mais capital acumulado, o imóvel atual vira parte da entrada do próximo, mais perto do imóvel dos sonhos.</span></li>
+</ol>
+
+<h2>Esperar o momento perfeito significa perder dinheiro</h2>
+<p>No mercado imobiliário, o momento perfeito raramente chega avisando. Quem espera os juros caírem, os preços baixarem ou a vida “se organizar” costuma enfrentar três custos ao mesmo tempo:</p>
+<ul>
+<li><strong>A valorização:</strong> o imóvel que você quer fica mais caro a cada ano, como mostram os números do FipeZap.</li>
+<li><strong>O aluguel:</strong> quem aluga segue pagando todo mês, e o aluguel também sobe. O índice de aluguel residencial do FipeZap acumulou alta de 7,11% de janeiro a setembro de 2026.</li>
+<li><strong>A oportunidade:</strong> os imóveis com melhor relação entre preço e localização são vendidos primeiro, muitas vezes antes de serem anunciados.</li>
+</ul>
+<p>Isso não quer dizer que ninguém deve esperar. Se você não tem reserva, está com dívidas caras ou pode mudar de cidade em breve, adiar é sensato. Veja quando faz sentido em <a href="/blog/vale-a-pena-comprar-imovel-agora/">vale a pena comprar imóvel agora ou esperar?</a> O erro é esperar sem um plano e sem saber pelo quê.</p>
+
+<blockquote>Para morar ou para investir, o momento perfeito é você quem faz.</blockquote>
+
+<h2>Para morar ou para investir em imóveis em Joaçaba e região</h2>
+<ul class="cards2">
+<li><strong>Para morar</strong><span>Defina os bairros que fazem sentido para a sua rotina de trabalho e escola. Veja as <a href="/casas-a-venda/">casas à venda em Joaçaba</a>, os <a href="/apartamentos-a-venda/">apartamentos à venda</a> e os <a href="/terrenos-a-venda/">terrenos</a> para construir.</span></li>
+<li><strong>Para investir</strong><span>Imóveis bem localizados, perto do Centro, de universidades e de serviços, costumam ter boa procura para aluguel. Considere também <a href="/imoveis-em-herval-doeste/">imóveis em Herval d'Oeste</a> e <a href="/imoveis-em-luzerna/">imóveis em Luzerna</a>, com preços diferentes e acesso rápido a Joaçaba.</span></li>
+</ul>
+<p>Em qualquer caso, compare imóveis parecidos no mesmo bairro, confira a matrícula e as certidões e faça as contas do custo total antes da proposta.</p>
+
+<h2>Comprar imóvel em Joaçaba com uma corretora ao seu lado</h2>
+<p>Eu estou aqui para te ajudar a começar o quanto antes. Como corretora de imóveis em Joaçaba, faço o diagnóstico do seu momento, apresento imóveis da minha carteira e de imobiliárias parceiras e acompanho a negociação, o financiamento e a documentação até a entrega das chaves, em Joaçaba, Herval d'Oeste, Luzerna e região.</p>
+<p>Quer ver o que está disponível agora? Confira os <a href="/imoveis-em-joacaba/">imóveis à venda em Joaçaba</a>.</p>
+""",
+        "faq": [
+            ("Quanto os imóveis valorizaram desde 2024?", "Segundo o Índice FipeZap, o preço médio de venda dos imóveis residenciais no Brasil subiu 7,73% em 2024, 6,52% em 2025 e 4,04% de janeiro a setembro de 2026. No acumulado do período, a alta foi de 19,4%."),
+            ("O primeiro imóvel precisa ser o imóvel dos sonhos?", "Não. O primeiro imóvel pode ser o que cabe no seu orçamento agora. Ele para o gasto com aluguel, acompanha a valorização e pode servir de entrada para o próximo imóvel, mais perto do que você sonha."),
+            ("Vale a pena esperar os preços dos imóveis caírem?", "Nos últimos anos, os preços subiram acima da inflação. Esperar faz sentido se você não tem reserva de emergência, tem dívidas caras ou pode mudar de cidade. Sem esses motivos, esperar costuma significar pagar mais pelo mesmo imóvel e seguir pagando aluguel."),
+            ("Quanto da renda posso comprometer com o financiamento imobiliário?", "Os bancos costumam limitar a parcela a cerca de 30% da renda familiar. O simulador de financiamento do site da Manu ajuda a estimar a parcela e o valor do imóvel com a sua renda, a entrada e o FGTS."),
+            ("A Manu atende imóveis em Herval d'Oeste e Luzerna?", "Sim. A Manu é corretora de imóveis (CRECI/SC 54977 F) e atende compra e venda de casas, apartamentos e terrenos em Joaçaba, Herval d'Oeste, Luzerna e região, para morar ou investir."),
+        ],
+        "fontes": [
+            ("Fipe: Índice FipeZap residencial de venda, informe de setembro de 2026 (PDF)", "https://downloads.fipe.org.br/indices/fipezap/fipezap-202609-residencial-venda.pdf"),
+            ("Índice FipeZAP: preços de imóveis sobem 6,52% em 2025 (InfoMoney)", "https://www.infomoney.com.br/?p=3162261"),
+            ("Aluguel residencial acumula alta de 7,11% em 2026, diz FipeZap (Portas)", "https://portas.com.br/noticias/aluguel-residencial-alta-711-2026-fipezap/"),
+            ("Índice FipeZAP (Fipe)", "https://www.fipe.org.br/pt-br/indices/fipezap/"),
+        ],
+    },
+    {
         # "dinamico": as marcas {{...}} são trocadas pelos preços atuais dos imóveis a cada geração (ver post_dinamico em gerar.py)
         "dinamico": True,
         "slug": "preco-de-imoveis-em-joacaba",
